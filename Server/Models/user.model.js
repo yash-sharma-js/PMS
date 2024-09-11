@@ -1,0 +1,13 @@
+/*
+id
+username
+bio
+email
+contact
+pic
+location
+project-id
+friends-id
+activeYN
+timestamp
+*/
