@@ -228,7 +228,9 @@ const LandingPage = () => {
                   className="w-24 h-24 rounded-full object-cover border-4 border-yellow-400"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-black mb-1">John Scot</h3>
+              <h3 className="text-2xl font-bold text-black mb-1">
+                Rajesh Mehra
+              </h3>
               <p className="text-yellow-500 font-medium mb-4">CEO</p>
               <p className="text-gray-700 leading-relaxed">
                 "The tools provided have greatly enhanced our team's
@@ -245,7 +247,9 @@ const LandingPage = () => {
                   className="w-24 h-24 rounded-full object-cover border-4 border-yellow-400"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-black mb-1">Jane Doe</h3>
+              <h3 className="text-2xl font-bold text-black mb-1">
+                Rahul Trivedi
+              </h3>
               <p className="text-yellow-500 font-medium mb-4">
                 Project Manager
               </p>
@@ -258,7 +262,29 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-      <h1>hello</h1>
+      <footer
+        className="text-white py-8 text-center"
+        style={{ backgroundColor: "#4b064b" }}
+      >
+        <p>Discover what you can achieve with Tashhub.</p>
+        <a
+          href="#"
+          className="bg-white text-purple-600 font-bold py-3 px-8 mt-4 inline-block rounded-full hover:bg-gray-100"
+        >
+          Try for Free
+        </a>
+        <div className="mt-6">
+          <p>&copy; 2024 Tashhub. All Rights Reserved.</p>
+          <nav className="flex justify-center space-x-4 mt-2">
+            <a href="#" className="hover:text-gray-300">
+              About Tashhub
+            </a>
+            <a href="#" className="hover:text-gray-300">
+              App
+            </a>
+          </nav>
+        </div>
+      </footer>
     </div>
   );
 };
