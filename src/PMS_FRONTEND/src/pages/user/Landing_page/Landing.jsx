@@ -38,9 +38,11 @@ const LandingPage = () => {
                 className="text-md sm:text-lg mb-6 md:mb-8 leading-relaxed"
                 style={{ fontFamily: "'Roboto', sans-serif" }}
               >
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English.
+                With Supervision, you get a seamless blend of features designed
+                to enhance productivity and teamwork. Unlike generic placeholder
+                text, our platform offers a structured approach to task
+                management and collaboration, making it easy to see how our
+                tools can streamline your workflow and boost efficiency.
               </p>
               <div className="flex justify-start space-x-4 mb-4">
                 <a
