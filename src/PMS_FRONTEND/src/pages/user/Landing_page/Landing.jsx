@@ -256,6 +256,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      <h1>hello</h1>
     </div>
   );
 };
