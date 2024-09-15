@@ -15,7 +15,7 @@ app.use(cors({
 const PORT = process.env.PORT || 8080;
 dbconnect.DbConnection();
 
-// Routes
+// Routesg
 app.get('/', (req, res) => {
     res.send("hey there");
 });
