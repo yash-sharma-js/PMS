@@ -1,5 +1,6 @@
 import React from "react";
-import CreateForm from "./create";
+import CreateForm from "./createProject";
+import CreateTask from "./createTask";
 
 function Fullnav() {
   return (
@@ -72,10 +73,10 @@ function Fullnav() {
 
         {/* Main Content */}
         <main className="ml-64 flex-1 p-8">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Projects / Create Project
+          </h2>
           <div className="bg-white shadow-md p-8 rounded-lg">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-              Projects / Create Project
-            </h2>
             <CreateForm />
           </div>
         </main>
