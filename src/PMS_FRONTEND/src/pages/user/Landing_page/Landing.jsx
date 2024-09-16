@@ -3,6 +3,7 @@ import logo from "./Landing_page_img/logo.jpg";
 import preview from "./Landing_page_img/preview.jpg";
 import feature from "./Landing_page_img/feature.png";
 import companies from "./Landing_page_img/companies.png";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -12,12 +13,12 @@ const LandingPage = () => {
           <img src={logo} alt="Logo" className="w-52 h-auto" />
         </div>
         <nav className="space-x-4">
-          <a href="#" className="text-black hover:text-gray-300">
+          <Link to="/signin" className="text-black hover:text-gray-300">
             Login
-          </a>
-          <a href="#" className="text-black hover:text-gray-300">
+          </Link>
+          <Link to="/signup" className="text-black hover:text-gray-300">
             Signup
-          </a>
+          </Link>
         </nav>
       </header>
 
