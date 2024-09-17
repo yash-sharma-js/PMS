@@ -72,12 +72,6 @@ const LandingPage = () => {
                   SIGN UP WITH GOOGLE
                 </a>
               </div>
-              <p
-                className="text-md sm:text-lg mt-2 md:mt-4"
-                style={{ fontFamily: "'Roboto', sans-serif" }}
-              >
-                Taskhub is free to try for as long as you'd like.
-              </p>
             </div>
             <div className="flex justify-end">
               <div className="w-full max-w-sm mr-20">
@@ -243,8 +237,8 @@ const LandingPage = () => {
             <div className="bg-gray-100 p-6 rounded-lg shadow-lg text-center">
               <div className="flex justify-center mb-4">
                 <img
-                  src="https://tse1.mm.bing.net/th?id=OIP.yRxPqLqW8oPUFF8m8k4eNwHaFj&pid=Api&P=0&h=180"
-                  alt="Jane Doe"
+                  src="https://imgs.search.brave.com/G8bI-pDYmvjORRRHa0F2xflh3jNk6FliO5qV7D1cMbA/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTQ0/MTM4NDAwL3Bob3Rv/L2luZGlhbi15b3Vu/Zy1tYW4taW4tbG9u/ZG9uLWV4cHJlc3Np/bmctcG9zaXRpdmUt/ZW1vdGlvbi5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9cnZr/Z1poNHFzM1BBV1U2/STEwWmRiQURZOGtp/VjZGMnJlemp5NlJB/V2dBTT0"
+                  alt="rakesh"
                   className="w-24 h-24 rounded-full object-cover border-4 border-yellow-400"
                 />
               </div>
@@ -267,7 +261,7 @@ const LandingPage = () => {
         className="text-white py-8 text-center"
         style={{ backgroundColor: "#4b064b" }}
       >
-        <p>Discover what you can achieve with Tashhub.</p>
+        <p>Discover what you can achieve with Supervision.</p>
         <a
           href="#"
           className="bg-white text-purple-600 font-bold py-3 px-8 mt-4 inline-block rounded-full hover:bg-gray-100"
@@ -275,13 +269,10 @@ const LandingPage = () => {
           Try for Free
         </a>
         <div className="mt-6">
-          <p>&copy; 2024 Tashhub. All Rights Reserved.</p>
+          <p>&copy; 2024 Supervision. All Rights Reserved.</p>
           <nav className="flex justify-center space-x-4 mt-2">
             <a href="#" className="hover:text-gray-300">
-              About Tashhub
-            </a>
-            <a href="#" className="hover:text-gray-300">
-              App
+              About Supervision
             </a>
           </nav>
         </div>
