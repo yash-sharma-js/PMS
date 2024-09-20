@@ -10,7 +10,7 @@ const LandingPage = () => {
     <div>
       <header className="white text-black py-4 px-8 flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <img src={logo} alt="Logo" className="w-52 h-auto" />
+          <img src={logo} alt="Logo" className="w-52 h-16" />
         </div>
         <nav className="space-x-4">
           <Link to="/signin" className="text-black hover:text-gray-300">

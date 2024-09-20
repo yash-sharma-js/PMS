@@ -98,7 +98,7 @@ function Signup() {
           <div className="text-center mt-6">
             <p>
               Have an account?{" "}
-              <Link to="/" className="text-blue-500 hover:underline">
+              <Link to="/signin" className="text-blue-500 hover:underline">
                 Sign In
               </Link>
             </p>
