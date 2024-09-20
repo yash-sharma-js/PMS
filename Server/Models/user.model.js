@@ -1,24 +1,10 @@
-/*
-id
-username
-bio
-email
-contact
-pic
-location
-project-id
-friends-id
-activeYN
-timestamp
-*/
-
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  id: {
-    type: String,  // Can also be ObjectId if preferred
-    required: true
-  },
+  // id: {
+  //   type: String,  // Can also be ObjectId if preferred
+  //   required: false
+  // },
   username: {
     type: String,
     required: true,
@@ -37,7 +23,7 @@ const userSchema = new mongoose.Schema({
   },
   contact: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   pic: {
@@ -50,17 +36,21 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: ''  // Optional field for location
   },
-  projectId: {
-    type: String,  // ID referring to a related project, can be ObjectId if relational
-    required: false
+  password:{
+    type: String,
+    required : true,
   },
-  friendsId: [{
-    type: String,  // Array of friends' IDs, can be ObjectId if linked to user model
-    required: false
-  }],
+  // projectId: {
+  //   type: String,  // ID referring to a related project, can be ObjectId if relational
+  //   required: false
+  // },
+  // friendsId: [{
+  //   type: String,  // Array of friends' IDs, can be ObjectId if linked to user model
+  //   required: false
+  // }],
   activeYN: {
     type: Boolean,
-    required: true,
+    required: false,
     default: true  // Indicates if the user is active
   },
   timestamp: {
