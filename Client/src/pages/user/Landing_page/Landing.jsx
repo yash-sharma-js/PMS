@@ -4,22 +4,93 @@ import preview from "./Landing_page_img/preview.jpg";
 import feature from "./Landing_page_img/feature.png";
 import companies from "./Landing_page_img/companies.png";
 import { Link } from "react-router-dom";
+import Contactus from "../Contact_us/Contactus";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useRef, useEffect, useState } from "react";
 
 const LandingPage = () => {
+  const swiperRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const statsRef = useRef(null);
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsStatsVisible(true);
+          } else {
+            setIsStatsVisible(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const swiperElement = swiperRef.current?.swiper?.el;
+
+    if (swiperElement) {
+      observer.observe(swiperElement);
+    }
+
+    return () => {
+      if (swiperElement) {
+        observer.unobserve(swiperElement);
+      }
+    };
+  }, []);
   return (
     <div>
-      <header className="white text-black py-4 px-8 flex justify-between items-center">
-        <div className="text-2xl font-bold">
-          <img src={logo} alt="Logo" className="w-52 h-16" />
+      <header className="bg-gray-200 text-black py-4 px-8 flex justify-between items-center">
+        <div className="text-2xl font-bold bg-gray-200">
+          <img
+            src={logo}
+            alt="Logo"
+            className="bg-gray-200 w-52 h-16"
+            style={{ mixBlendMode: "multiply" }}
+          />
         </div>
-        <nav className="space-x-4">
-          <Link to="/signin" className="text-black hover:text-gray-300">
-            Login
-          </Link>
-          <Link to="/signup" className="text-black hover:text-gray-300">
-            Signup
-          </Link>
-        </nav>
+        <div className="flex">
+          <div className="justify-center">
+            <nav className="space-x-4">
+              <Link to="/contactus" className="text-black hover:text-gray-300">
+                Contactus
+              </Link>
+              <Link to="/signin" className="text-black hover:text-gray-300">
+                Login
+              </Link>
+              <Link to="/signup" className="text-black hover:text-gray-300">
+                Signup
+              </Link>
+            </nav>
+          </div>
+        </div>
       </header>
 
       <section
@@ -100,47 +171,99 @@ const LandingPage = () => {
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto text-center px-4">
           <h2 className="text-3xl font-bold mb-6">Our Benefits</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
+          <Swiper
+            ref={swiperRef}
+            spaceBetween={30}
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+            }}
+          >
+            <SwiperSlide
+              className="bg-white p-6 rounded-lg shadow-md"
+              style={{ height: "320px" }}
+            >
               <h3 className="text-xl font-semibold mb-4">
                 Collaborate Seamlessly
               </h3>
-              <p className="text-gray-700 leading-relaxed">
-                Enhance teamwork with real-time collaboration tools that allow
-                your team to work together effortlessly, no matter their
-                location. Share updates instantly, delegate tasks, and track
-                progress all in one place. With live notifications and
-                integrated file sharing, everyone stays aligned and productive.
-                Collaborate, communicate, and achieve more together.
+              <p className="text-gray-700 leading-relaxed text-base">
+                Enhance teamwork with real-time collaboration tools. Share
+                updates, assign tasks, and track progress effortlessly.
+                Integrated notifications and file sharing keep everyone aligned
+                and productive, reducing miscommunication. With built-in
+                communication channels, your team can work together no matter
+                where they are, ensuring timely updates and seamless execution.
               </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            </SwiperSlide>
+            <SwiperSlide
+              className="bg-white p-6 rounded-lg shadow-md"
+              style={{ height: "320px" }}
+            >
               <h3 className="text-xl font-semibold mb-4">
                 Easy Task Management
               </h3>
-              <p className="text-gray-700 leading-relaxed">
-                Organize, prioritize, and track tasks effortlessly with our
-                intuitive task management tools. Assign tasks, set deadlines,
-                and monitor progress in real time, all from one central
-                platform. Stay focused with visual task boards and reminders to
-                ensure nothing falls through the cracks. Manage your workload
-                with ease and boost productivity.
+              <p className="text-gray-700 leading-relaxed text-base">
+                Organize, prioritize, and track tasks effortlessly with
+                intuitive tools. Assign tasks, set deadlines, and monitor
+                progress in real-time. Stay focused with visual task boards,
+                reminders, and task categories, ensuring nothing falls through
+                the cracks. Manage everything from a single dashboard, giving
+                your team the clarity they need to execute projects efficiently.
               </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            </SwiperSlide>
+            <SwiperSlide
+              className="bg-white p-6 rounded-lg shadow-md"
+              style={{ height: "320px" }}
+            >
               <h3 className="text-xl font-semibold mb-4">Boost Productivity</h3>
-              <p className="text-gray-700 leading-relaxed">
-                To boost productivity, use tools that streamline workflows and
-                enhance teamwork. Project management tools like Asana and Trello
-                keep tasks organized and track progress. Communication platforms
-                such as Slack and Microsoft Teams improve messaging and file
-                sharing. Time management apps like Toggl and RescueTime offer
-                insights into time use, helping with prioritization.
-                Additionally, automation tools like Zapier save time by
-                connecting and automating tasks across different apps.
+              <p className="text-gray-700 leading-relaxed text-base">
+                Maximize output by streamlining workflows and automating
+                repetitive tasks. Improve communication and ensure tasks are
+                completed on time with integrated scheduling and reminders.
+                Built-in analytics help track performance and optimize
+                processes, while time-saving tools let you focus on what matters
+                most—delivering results with efficiency and speed.
               </p>
-            </div>
-          </div>
+            </SwiperSlide>
+            <SwiperSlide
+              className="bg-white p-6 rounded-lg shadow-md"
+              style={{ height: "320px" }}
+            >
+              <h3 className="text-xl font-semibold mb-4">
+                Enhance Team Productivity
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-base">
+                Boost your team's output by optimizing workflows and minimizing
+                repetitive tasks. Ensure timely completion of tasks with
+                integrated scheduling tools and reminders. Leverage analytics to
+                track performance and enhance overall efficiency, enabling your
+                team to focus on what matters most and deliver results
+                effectively.
+              </p>
+            </SwiperSlide>
+            <SwiperSlide
+              className="bg-white p-6 rounded-lg shadow-md"
+              style={{ height: "320px" }}
+            >
+              <h3 className="text-xl font-semibold mb-4">
+                Enhance Team Productivity
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-base">
+                Boost your team's output by optimizing workflows and minimizing
+                repetitive tasks. Ensure timely completion of tasks with
+                integrated scheduling tools and reminders. Leverage analytics to
+                track performance and enhance overall efficiency, enabling your
+                team to focus on what matters most and deliver results
+                effectively.
+              </p>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </section>
 
@@ -184,21 +307,33 @@ const LandingPage = () => {
       </section>
 
       <section className="bg-gray-100 py-20 mr-7 ml-7">
-        <div className="container mx-auto text-center px-4">
+        <div ref={statsRef} className="container mx-auto text-center px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div>
+            <div
+              className={`transform transition-transform duration-700 delay-100 ${
+                isStatsVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"
+              }`}
+            >
               <h3 className="text-3xl font-bold" style={{ color: "#4b064b" }}>
                 200+
               </h3>
               <p>Companies onboarded</p>
             </div>
-            <div>
+            <div
+              className={`transform transition-transform duration-700 delay-200 ${
+                isStatsVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"
+              }`}
+            >
               <h3 className="text-3xl font-bold" style={{ color: "#4b064b" }}>
                 18K+
               </h3>
               <p>Active users</p>
             </div>
-            <div>
+            <div
+              className={`transform transition-transform duration-700 delay-300 ${
+                isStatsVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"
+              }`}
+            >
               <h3 className="text-3xl font-bold" style={{ color: "#4b064b" }}>
                 23K+
               </h3>
