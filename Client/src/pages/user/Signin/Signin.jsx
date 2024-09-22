@@ -22,9 +22,14 @@ function Signin() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center py-10 px-4 md:px-0 bg-gray-200">
-      <div className="w-full md:w-9/12 lg:w-8/12 xl:w-6/12 flex flex-col md:flex-row justify-around items-center p-8 md:p-12 bg-white rounded-2xl shadow-lg">
-        <div className="w-full md:w-2/4 p-6">
+    <div className="min-h-screen flex justify-center items-center py-10 px-4 bg-gray-200">
+      <div
+        className="w-full md:w-9/12 lg:w-8/12 xl:w-6/12 flex flex-col md:flex-row justify-around items-center p-8 bg-white rounded-2xl shadow-lg"
+        style={{ height: "600px" }}
+      >
+        {" "}
+        {/* Set height */}
+        <div className="w-full md:w-2/4 p-6 flex flex-col justify-center">
           <h2 className="text-2xl mb-2 font-semibold">Welcome Back</h2>
           <p className="text-sm text-gray-500 mb-6">
             Enter your details to login
