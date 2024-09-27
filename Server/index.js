@@ -1,9 +1,10 @@
     const express = require('express');
-    require('dotenv').config(); // Corrected with parentheses
+    require('dotenv').config(); 
     const cors = require('cors');
     const app = express();
     const dbconnect = require('./Config/dbconnect');
     const { signUp,signIn } = require('./Auth/signup');
+    const projectRoutes  = require('./Routes/project.route')
     // Use the correct app object
 
     // middlewares
@@ -16,14 +17,13 @@
     const PORT = process.env.PORT || 8080;
     dbconnect.DbConnection();
 
-    // Routesg
-    app.get('/', (req, res) => {
-        res.send("hey there");
-    });
-
     app.listen(PORT, () => {
         console.log('listening on port ' + PORT);
     });
+
+
+    //project routes
+    app.use('/api', projectRoutes);
 
 
     app.post('/signup', signUp);

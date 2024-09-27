@@ -5,11 +5,10 @@
  * Type
  * timestamp
  */
-
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
-  id: {
+  userId: {
     type: String,   // You can use mongoose.Schema.Types.ObjectId if you want auto-generated IDs
     required: true
   },
@@ -32,6 +31,6 @@ const projectSchema = new mongoose.Schema({
   }
 });
 
-const CustomModel = mongoose.model('CustomModel', customSchema);
+const ProjectModel = mongoose.model('ProjectModel', projectSchema);
 
-module.exports = CustomModel;
+module.exports = ProjectModel;
