@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import signupimg from "./SignupImg/login.png";
-
+import signupimg from "../../../Images/Login/Login.png";
+import Input from "../../../components/input/Input";
+import SubmitButton from "../../../components/button/SubmitButton";
 function Signup() {
   const [formData, setFormData] = useState({
     name: "",
@@ -29,56 +30,36 @@ function Signup() {
         className="w-full md:w-9/12 lg:w-8/12 xl:w-6/12 flex flex-col md:flex-row justify-around items-center p-8 bg-white rounded-2xl shadow-lg"
         style={{ height: "600px" }}
       >
-        {" "}
-        {/* Set height */}
         <div className="w-full md:w-2/4 p-6 flex flex-col justify-center">
           <h2 className="text-2xl mb-2 font-semibold">Get Started Now</h2>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="name" className="block mb-2 text-sm">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="email" className="block mb-2 text-sm">
-                Email address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="password" className="block mb-2 text-sm">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded"
-              />
-            </div>
+            <Input
+              label="Name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="Enter your name"
+            />
+            <Input
+              label="Email address"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="Enter your email"
+            />
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Enter your password"
+            />
             <div className="flex items-center mb-4">
               <input
                 type="checkbox"
@@ -93,12 +74,7 @@ function Signup() {
                 I agree to the terms & policy
               </label>
             </div>
-            <button
-              type="submit"
-              className="w-full p-3 bg-teal-700 text-white rounded-lg hover:bg-teal-500 transition duration-300"
-            >
-              Signup
-            </button>
+            <SubmitButton text="Signup" />
           </form>
           <div className="text-center mt-6">
             <p>

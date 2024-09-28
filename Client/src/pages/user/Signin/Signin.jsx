@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Signinimg from "./SigninImg/login.png";
+import Signinimg from '../../../Images/Login/login.png'
+import Input from "../../../components/input/Input";
+import SubmitButton from "../../../components/button/SubmitButton";
 
 function Signin() {
   const [formData, setFormData] = useState({
@@ -27,55 +29,36 @@ function Signin() {
         className="w-full md:w-9/12 lg:w-8/12 xl:w-6/12 flex flex-col md:flex-row justify-around items-center p-8 bg-white rounded-2xl shadow-lg"
         style={{ height: "600px" }}
       >
-        {" "}
-        {/* Set height */}
         <div className="w-full md:w-2/4 p-6 flex flex-col justify-center">
           <h2 className="text-2xl mb-2 font-semibold">Welcome Back</h2>
           <p className="text-sm text-gray-500 mb-6">
             Enter your details to login
           </p>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="email" className="block mb-2 text-sm">
-                Email address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="password" className="block mb-2 text-sm">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded"
-              />
-            </div>
+            <Input
+              label="Email address"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="Enter your email"
+            />
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Enter your password"
+            />
             <div className="flex justify-between items-center mb-6">
               <a href="#" className="text-blue-500 text-sm hover:underline">
                 Forgot Password?
               </a>
             </div>
-            <button
-              type="submit"
-              className="w-full p-3 bg-teal-700 text-white rounded-lg hover:bg-teal-500 transition duration-300"
-            >
-              Login
-            </button>
+            <SubmitButton text="Login" />
           </form>
           <div className="text-center mt-6">
             <p>

@@ -1,19 +1,17 @@
 import React from "react";
-import logo from "./Landing_page_img/logo.jpg";
-import preview from "./Landing_page_img/preview.jpg";
-import feature from "./Landing_page_img/feature.png";
-import companies from "./Landing_page_img/companies.png";
+import logo from "../../../Images/Landing_page_img/logo.jpg";
+import preview from "../../../Images/Landing_page_img/preview.jpg";
+import feature from "../../../Images/Landing_page_img/feature.png";
 import { Link } from "react-router-dom";
-import Contactus from "../Contact_us/Contactus";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useEffect, useState } from "react";
+import Contactus from "../../../components/Contact_us/Contactus";
 
 const LandingPage = () => {
   const swiperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const statsRef = useRef(null);
   const [isStatsVisible, setIsStatsVisible] = useState(false);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -65,6 +63,24 @@ const LandingPage = () => {
       }
     };
   }, []);
+  useEffect(() => {
+    const totalSlides = 5;
+    let slideChange;
+    if (isVisible) {
+      slideChange = setInterval(() => {
+        if (swiperRef.current) {
+          const currentIndex = swiperRef.current.swiper.activeIndex;
+
+          if (currentIndex < totalSlides - 1) {
+            swiperRef.current.swiper.slideTo(currentIndex + 1);
+          }
+        }
+      }, 1000);
+    }
+    return () => {
+      clearInterval(slideChange);
+    };
+  }, [isVisible]);
   return (
     <div>
       <header className="bg-gray-200 text-black py-4 px-8 flex justify-between items-center">
@@ -79,9 +95,6 @@ const LandingPage = () => {
         <div className="flex">
           <div className="justify-center">
             <nav className="space-x-4">
-              <Link to="/contactus" className="text-black hover:text-gray-300">
-                Contactus
-              </Link>
               <Link to="/signin" className="text-black hover:text-gray-300">
                 Login
               </Link>
@@ -342,7 +355,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
       <section className="bg-white py-16">
         <div className="container mx-auto text-center px-4">
           <p className="text-yellow-500 font-semibold mb-2">Testimonials</p>
@@ -392,6 +404,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      <Contactus />
       <footer
         className="text-white py-8 text-center"
         style={{ backgroundColor: "#4b064b" }}
