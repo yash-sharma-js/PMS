@@ -5,7 +5,6 @@ import CreateTask from "../../pages/user/Project_create/createTask";
 function Fullnav() {
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      {/* Navbar */}
       <nav className="flex items-center justify-between bg-white border-b border-gray-200 px-8 py-4 fixed w-full z-10 top-0 shadow-sm">
         <div className="flex items-center">
           <img
@@ -37,9 +36,7 @@ function Fullnav() {
         </div>
       </nav>
 
-      {/* Layout */}
       <div className="flex mt-16 h-full">
-        {/* Sidebar */}
         <aside className="w-64 bg-white py-8 px-4 fixed top-16 bottom-0 border-r border-gray-200">
           <ul className="space-y-4">
             <li className="cursor-pointer flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-md">
@@ -71,7 +68,6 @@ function Fullnav() {
           </ul>
         </aside>
 
-        {/* Main Content */}
         <main className="ml-64 flex-1 p-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             Projects / Create Project
@@ -80,6 +76,9 @@ function Fullnav() {
             <CreateForm />
           </div>
         </main>
+        <div>
+          <h1>hello</h1>
+        </div>
       </div>
     </div>
   );
