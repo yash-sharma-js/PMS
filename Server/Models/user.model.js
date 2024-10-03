@@ -44,15 +44,15 @@ const userSchema = new mongoose.Schema({
   //   type: String,  // ID referring to a related project, can be ObjectId if relational
   //   required: false
   // },
-  // friendsId: [{
-  //   type: String,  // Array of friends' IDs, can be ObjectId if linked to user model
-  //   required: false
-  // }],
-  activeYN: {
-    type: Boolean,
-    required: false,
-    default: true  // Indicates if the user is active
-  },
+  friendsId: [{
+    type:mongoose.Schema.Types.ObjectId ,  // Array of friends' IDs, can be ObjectId if linked to user model
+    required: false
+  }],
+  // activeYN: {
+  //   type: Boolean,
+  //   required: false,
+  //   default: true  // Indicates if the user is active
+  // },
   timestamp: {
     type: Date,
     default: Date.now  // Automatically sets the current timestamp
@@ -61,4 +61,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = {
+  User : User
+};

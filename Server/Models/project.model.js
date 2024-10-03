@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
   userId: {
-    type: String,   // You can use mongoose.Schema.Types.ObjectId if you want auto-generated IDs
+    type: mongoose.Schema.Types.ObjectId,   // You can use mongoose.Schema.Types.ObjectId if you want auto-generated IDs
     required: true
   },
   title: {

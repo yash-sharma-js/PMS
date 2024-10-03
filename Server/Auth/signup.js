@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
-const User = require('../Models/user.model')
+const {User} = require('../Models/user.model')
 const bcrypt = require('bcrypt')
 
 // ek kam krte ek bar user ko signup krne dete baad me jo jo essentials hai vo vo lelenge 
