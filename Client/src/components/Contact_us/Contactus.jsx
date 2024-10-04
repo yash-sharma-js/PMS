@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const ContactUs = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -22,24 +23,24 @@ const ContactUs = () => {
                 Contact Information
               </h3>
               <div className="flex items-center mb-2">
-                <span className="mr-3 text-yellow-500 text-lg">
+                <span className="mr-3 text-black text-lg">
                   <i className="fas fa-phone-alt"></i>
                 </span>
                 <p className="text-md">+91 91720 71820</p>
               </div>
 
               <div className="flex items-center mb-2">
-                <span className="mr-3 text-yellow-500 text-lg">
+                <span className="mr-3 text-black text-lg">
                   <i className="fas fa-map-marker-alt"></i>
                 </span>
                 <p className="text-md">
-                  SINDHI COLONY NANAK NAGAR,BHUSAWAL(JALGAON) NEAR BIG SEVA
+                  SINDHI COLONY NANAK NAGAR, BHUSAWAL(JALGAON) NEAR BIG SEVA
                   MANDAL
                 </p>
               </div>
 
               <div className="flex items-center mb-2">
-                <span className="mr-3 text-yellow-500 text-lg">
+                <span className="mr-3 text-black text-lg">
                   <i className="fas fa-clock"></i>
                 </span>
                 <p className="text-md">
@@ -48,7 +49,7 @@ const ContactUs = () => {
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold  text-center mb-4">
+              <h3 className="text-xl font-bold text-center mb-4">
                 Send a Message
               </h3>
               {formSubmitted && (

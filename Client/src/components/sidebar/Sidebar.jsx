@@ -9,14 +9,14 @@ function Sidebar() {
       <ul className="space-y-4">
         <li
           className={`cursor-pointer flex items-center space-x-2 ${
-            location.pathname === "/createproject" ? "bg-blue-50" : ""
+            location.pathname === "/project" ? "bg-blue-50" : ""
           } px-4 py-2 rounded-md`}
         >
           <span>
-            <Link to="/createproject"> 📁 </Link>
+            <Link to="/project"> 📁 </Link>
           </span>
           <span className="text-sm font-medium text-gray-700">
-            <Link to="/createproject"> Project </Link>
+            <Link to="/project"> Project </Link>
           </span>
         </li>
         <li

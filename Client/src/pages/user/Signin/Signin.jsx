@@ -33,7 +33,7 @@ function Signin() {
         userData.password === formData.password
       ) {
         // Redirect to the project creation page
-        navigate("/createproject");
+        navigate("/project");
       } else {
         setErrorMessage("Invalid email or password. Please try again.");
       }

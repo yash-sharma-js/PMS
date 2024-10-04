@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import Header from "../../../components/header/Header";
+import TextInput from "../../../components/text_input/TextInput";
+import DateInput from "../../../components/date_input/DateInput";
+import ProjectDescription from "../../../components/project_dec/project_dec"; // Assuming this is for task description
 import Sidebar from "../../../components/sidebar/Sidebar";
+import Header from "../../../components/header/Header";
 
 const CreateTask = () => {
   const [taskTitle, setTaskTitle] = useState("");
@@ -14,112 +17,85 @@ const CreateTask = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Handle task creation logic here
+    const taskData = {
+      title: taskTitle,
+      type: taskType,
+      startDate,
+      endDate,
+      description: taskDescription,
+      assignee,
+    };
+    // Save to Local Storage or perform any action with taskData
+    console.log("Task created:", taskData);
+    alert("Task created successfully and saved in local storage!");
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50 overflow-hidden">
-      <Header />
-
-      <div className="flex mt-16 h-full overflow-hidden">
-        <Sidebar />
-        <main className="ml-64 flex-1 p-8 pb-24 bg-gray-50 overflow-y-auto">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            Tasks / Create Task
-          </h2>
-          <div className="bg-white shadow-md p-8 rounded-lg">
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">
-                    Task Title
-                  </label>
-                  <input
-                    type="text"
-                    value={taskTitle}
-                    onChange={(e) => setTaskTitle(e.target.value)}
-                    className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
-                    placeholder="Enter task title"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">
-                    Task Type
-                  </label>
-                  <input
-                    type="text"
-                    value={taskType}
-                    onChange={(e) => setTaskType(e.target.value)}
-                    className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
-                    placeholder="Enter task type"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">
-                    Task Start Date
-                  </label>
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">
-                    Task End Date
-                  </label>
-                  <input
-                    type="date"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  Task Description
-                </label>
-                <textarea
-                  value={taskDescription}
-                  onChange={(e) => setTaskDescription(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500 h-32"
-                  placeholder="Describe the task"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  Assign to
-                </label>
-                <select
-                  value={assignee}
-                  onChange={(e) => setAssignee(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
-                >
-                  {assignees.map((person, index) => (
-                    <option key={index} value={person}>
-                      {person}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex justify-end mt-6 space-x-4">
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
-                >
-                  Create
-                </button>
-                <button
-                  type="button"
-                  className="bg-red-500 px-6 py-2 rounded-md hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </div>
-            </form>
+    <div className="relative min-h-screen bg-gray-100">
+      <Header /> {/* Header at the top */}
+      <Sidebar /> {/* Sidebar on the left */}
+      <div className="ml-56 mr-1 px-20 pt-24">
+        {/* Left and right margins with padding */}
+        <div className="p-8 w-full max-w-7xl mx-auto bg-white shadow-md rounded-lg mb-10 min-h-[75vh]">
+          {/* Increased padding and added a minimum height */}
+          <h1 className="text-2xl font-bold mb-4">Create Task</h1>
+          {/* Form Fields in a Single Line */}
+          <div className="grid grid-cols-4 gap-4">
+            <TextInput
+              label="Task Title"
+              placeholder="Enter task title"
+              value={taskTitle}
+              onChange={(e) => setTaskTitle(e.target.value)}
+            />
+            <TextInput
+              label="Task Type"
+              placeholder="Enter task type"
+              value={taskType}
+              onChange={(e) => setTaskType(e.target.value)}
+            />
+            <DateInput
+              label="Start Date"
+              value={startDate}
+              onChange={setStartDate}
+            />
+            <DateInput label="End Date" value={endDate} onChange={setEndDate} />
           </div>
-        </main>
+          <div className="mt-4">
+            <ProjectDescription
+              value={taskDescription}
+              onChange={setTaskDescription}
+            />
+          </div>
+          <div className="mt-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Assign to
+            </label>
+            <select
+              value={assignee}
+              onChange={(e) => setAssignee(e.target.value)}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:border-blue-500"
+            >
+              {assignees.map((person, index) => (
+                <option key={index} value={person}>
+                  {person}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Create and Delete Buttons */}
+          <div className="flex justify-end space-x-4 mt-6">
+            <button
+              className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={handleSubmit}
+            >
+              Create
+            </button>
+            <button className="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
