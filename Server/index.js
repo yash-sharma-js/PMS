@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 const dbconnect = require('./Config/dbconnect');
 const { signUp, signIn } = require('./Auth/signup');
-// const projectRoutes = require('./Routes/project.route');
+const projectRoutes = require('./Routes/project.route');
 const { addfriend } = require('./Controllers/user.controller');
 // Use the correct app object
 
@@ -24,7 +24,7 @@ app.listen(PORT, () => {
 
 
 //project routes
-// app.use('/api', projectRoutes);
+app.use('/api/projects', projectRoutes);
 
 
 app.post('/signup', signUp);

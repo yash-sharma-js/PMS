@@ -1,52 +1,33 @@
 const mongoose = require('mongoose');
 
-const taskSchema = new mongoose.Schema({
-  id: {
-    type: String,  // You can change this to ObjectId if you want auto-generated IDs
+const projectSchema = new mongoose.Schema({
+  projectId: {
+    type: mongoose.Schema.Types.ObjectId,  // Auto-generated ID
     required: true
   },
   title: {
     type: String,
     required: true,
-    trim: true
+    trim: true  // Trims extra spaces before and after the title
   },
   description: {
     type: String,
     required: true
   },
-  projectId: {
-    type: String,  // Assuming project-id refers to a related project, otherwise use ObjectId for relational mapping
-    required: true
-  },
-  priority: {
+  type: {
     type: String,
-    enum: ['Low', 'Medium', 'High'],  // Assuming priority levels, adjust as needed
     required: true
-  },
-  ownerId: {
-    type: String,  // Refers to the owner, could also be ObjectId if related to users
-    required: true
-  },
-  doc: {
-    type: String,  // Assuming doc refers to some document URL or path
-    required: false  // Not all tasks may have a doc
-  },
-  status: {
-    type: String,
-    enum: ['Pending', 'In Progress', 'Completed'],  // Assuming different statuses
-    required: true
-  },
-  activeYN: {
-    type: Boolean,
-    required: true,
-    default: true
   },
   timestamp: {
     type: Date,
     default: Date.now  // Automatically sets the current date/time
-  }
+  },
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId,  // Stores the ID of related tasks
+    ref: 'TaskModel'  // Assumes you have a Task model to reference
+  }]
 });
 
-const Task = mongoose.model('Task', taskSchema);
+const ProjectModel = mongoose.model('ProjectModel', projectSchema);
 
-module.exports = Task;
+module.exports = ProjectModel;

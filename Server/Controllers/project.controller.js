@@ -1,80 +1,60 @@
-const ProjectModel = require('../Routes/project.route');
+const ProjectModel = require('../Models/project.model');
 
-// Create a new project (ensures unique title per user)
+// Create a new project
 exports.createProject = async (req, res) => {
   try {
-    const { userId, title } = req.body;
-
-    // Check if a project with the same title and userId already exists
-    const existingProject = await ProjectModel.findOne({ userId, title });
-    if (existingProject) {
-      return res.status(400).json({ message: 'Project with the same name already exists for this user' });
-    }
-
-    // If no duplicate, create a new project
-    const newProject = new ProjectModel(req.body);
+    const { userId, title, description, type, tasks } = req.body;
+    const newProject = new ProjectModel({
+      userId,
+      title,
+      description,
+      type,
+      tasks  // Optional: This stores task IDs if provided
+    });
     const savedProject = await newProject.save();
     res.status(201).json(savedProject);
-  } catch (error) {
-    res.status(400).json({ message: 'Error creating project', error });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create project', message: err.message });
   }
 };
 
-// Get all projects by userId
+// Get all projects
 exports.getAllProjects = async (req, res) => {
   try {
-    const { userId } = req.query;
-
-    if (!userId) {
-      return res.status(400).json({ message: 'userId is required to fetch projects' });
-    }
-
-    // Find projects by userId
-    const projects = await ProjectModel.find({ userId });
+    const projects = await ProjectModel.find().populate('tasks');  // Populate tasks if needed
     res.status(200).json(projects);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching projects', error });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch projects', message: err.message });
   }
 };
 
-// Get a specific project by userId and title (project name)
-exports.getProjectByUserIdAndTitle = async (req, res) => {
+// Get project by ID
+exports.getProjectById = async (req, res) => {
   try {
-    const { userId, title } = req.params;
-
-    if (!userId || !title) {
-      return res.status(400).json({ message: 'userId and project title are required' });
-    }
-
-    // Find a project by userId and title
-    const project = await ProjectModel.findOne({ userId, title });
+    const project = await ProjectModel.findById(req.params.id).populate('tasks');
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
     res.status(200).json(project);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching project', error });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch project', message: err.message });
   }
 };
 
-// Update a project
+// Update project by ID
 exports.updateProject = async (req, res) => {
   try {
-    const updatedProject = await ProjectModel.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const updatedProject = await ProjectModel.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('tasks');
     if (!updatedProject) {
       return res.status(404).json({ message: 'Project not found' });
     }
     res.status(200).json(updatedProject);
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating project', error });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update project', message: err.message });
   }
 };
 
-// Delete a project
+// Delete project by ID
 exports.deleteProject = async (req, res) => {
   try {
     const deletedProject = await ProjectModel.findByIdAndDelete(req.params.id);
@@ -82,7 +62,7 @@ exports.deleteProject = async (req, res) => {
       return res.status(404).json({ message: 'Project not found' });
     }
     res.status(200).json({ message: 'Project deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting project', error });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete project', message: err.message });
   }
 };

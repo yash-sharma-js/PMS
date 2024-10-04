@@ -1,21 +1,14 @@
-/**
- * id
- * title
- * description
- * Type
- * timestamp
- */
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,   // You can use mongoose.Schema.Types.ObjectId if you want auto-generated IDs
+    type: mongoose.Schema.Types.ObjectId,  // Auto-generated ID
     required: true
   },
   title: {
     type: String,
     required: true,
-    trim: true   // Trims extra spaces before and after the title
+    trim: true  // Trims extra spaces before and after the title
   },
   description: {
     type: String,
@@ -27,8 +20,12 @@ const projectSchema = new mongoose.Schema({
   },
   timestamp: {
     type: Date,
-    default: Date.now   // Automatically sets the current date/time
-  }
+    default: Date.now  // Automatically sets the current date/time
+  },
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId,  // Stores the ID of related tasks
+    ref: 'TaskModel'  // Assumes you have a Task model to reference
+  }]
 });
 
 const ProjectModel = mongoose.model('ProjectModel', projectSchema);
