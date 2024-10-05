@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../Images/Landing_page_img/logo.jpg";
+import { Link } from "react-router-dom";
 
 function Header() {
   // Fetch user data from local storage
@@ -9,12 +10,15 @@ function Header() {
   return (
     <nav className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3 fixed w-full z-10 top-0 shadow-md">
       <div className="text-xl font-bold">
-        <img
-          src={logo}
-          alt="Logo"
-          className="w-48 h-12"
-          style={{ mixBlendMode: "multiply" }}
-        />
+        <Link to="/">
+          {" "}
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-48 h-12"
+            style={{ mixBlendMode: "multiply" }}
+          />
+        </Link>
       </div>
       <div className="flex items-center space-x-4">
         <input

@@ -130,23 +130,25 @@ const LandingPage = () => {
                 tools can streamline your workflow and boost efficiency.
               </p>
               <div className="flex justify-start space-x-4 mb-4">
-                <a
+                <Link
                   href="#"
-                  className="bg-white font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 flex items-center justify-center"
+                  className="bg-white font-bold py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 flex items-center justify-center"
                   style={{
                     fontFamily: "'Roboto', sans-serif",
                     color: "#541554",
                   }}
+                  to="/signin"
                 >
-                  SIGN UP WITH EMAIL
-                </a>
-                <a
+                  REGISTER WITH EMAIL
+                </Link>
+                <Link
                   href="#"
                   className="bg-white font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 flex items-center justify-center"
                   style={{
                     fontFamily: "'Roboto', sans-serif",
                     backgroundColor: "#4285F4",
                   }}
+                  to="/signup"
                 >
                   <img
                     src="https://img.icons8.com/?size=48&id=V5cGWnc9R4xj&format=png"
@@ -154,7 +156,7 @@ const LandingPage = () => {
                     className="w-6 h-6 mr-2 bg-white"
                   />
                   SIGN UP WITH GOOGLE
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-end">
