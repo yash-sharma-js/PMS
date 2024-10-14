@@ -7,6 +7,7 @@ import CreateProject from "./pages/user/Project_create/CreateProjectPage";
 import CreateTask from "./pages/user/Project_create/createTask";
 import Profile from "./pages/user/Profile/Profile";
 import ProjectPage from "./pages/user/All_projects/ProjectPage";
+import UserProfilePage from "./pages/user/edit_profile/UserProfilePage"
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/createtask" element={<CreateTask />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/project" element={<ProjectPage />} />
+        <Route path="/editprofile" element = {<UserProfilePage />} />
       </Routes>
     </Router>
   );

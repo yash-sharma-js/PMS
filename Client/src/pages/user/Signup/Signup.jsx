@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signupimg from "../../../Images/Login/Login.png";
 import Input from "../../../components/input/Input";
-import SubmitButton from "../../../components/button/SubmitButton";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -13,6 +12,7 @@ function Signup() {
   });
 
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,20 +23,45 @@ function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
-    localStorage.setItem("userSignupData", JSON.stringify(formData));
-    setSuccessMessage("Signup successful! Redirecting to login...");
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      termsAccepted: false,
-    });
-    setTimeout(() => {
-      navigate("/signin");
-    }, 2000);
+
+    try {
+      const response = await fetch("http://localhost:8080/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "Signup failed. Please try again."
+        );
+      }
+
+      const data = await response.json();
+      setSuccessMessage("Signup successful! Redirecting to login...");
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        termsAccepted: false,
+      });
+      setTimeout(() => {
+        navigate("/signin");
+      }, 2000);
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -49,6 +74,9 @@ function Signup() {
           <h2 className="text-2xl mb-2 font-semibold">Get Started Now</h2>
           {successMessage && (
             <div className="mb-4 text-green-600">{successMessage}</div>
+          )}
+          {errorMessage && (
+            <div className="mb-4 text-red-600">{errorMessage}</div>
           )}
           <form onSubmit={handleSubmit}>
             <Input

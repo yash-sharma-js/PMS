@@ -20,25 +20,30 @@ function Signin() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login Data Submitted:", formData);
+    try {
+      const response = await fetch("YOUR_API_ENDPOINT/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const storedData = localStorage.getItem("userSignupData");
-    if (storedData) {
-      const userData = JSON.parse(storedData);
-
-      if (
-        userData.email === formData.email &&
-        userData.password === formData.password
-      ) {
-        // Redirect to the project creation page
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login successful:", data);
+        localStorage.setItem("token", data.token);
         navigate("/project");
       } else {
-        setErrorMessage("Invalid email or password. Please try again.");
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || "Invalid credentials.");
       }
-    } else {
-      setErrorMessage("No user data found. Please sign up first.");
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+      setErrorMessage("Something went wrong. Please try again.");
     }
   };
 
@@ -46,7 +51,7 @@ function Signin() {
     <div className="min-h-screen flex justify-center items-center bg-gray-200">
       <div
         className="w-full md:w-9/12 lg:w-8/12 xl:w-6/12 flex flex-col md:flex-row justify-around items-center p-8 bg-white rounded-2xl shadow-lg"
-        style={{ maxHeight: "80vh" }} // Set max height
+        style={{ maxHeight: "80vh" }}
       >
         <div className="w-full md:w-2/4 p-6 flex flex-col justify-center">
           <h2 className="text-2xl mb-2 font-semibold">Welcome Back</h2>
