@@ -9,6 +9,7 @@ import Profile from "./pages/user/Profile/Profile";
 import ProjectPage from "./pages/user/All_projects/ProjectPage";
 import UserProfilePage from "./pages/user/edit_profile/UserProfilePage";
 import All_Task from "./pages/user/Project_create/All_Task";
+import Performance from "./pages/user/Performance/Performance";
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/project" element={<ProjectPage />} />
         <Route path="/editprofile" element={<UserProfilePage />} />
         <Route path="/tasks" element={<All_Task />} />
+        <Route path="/Performance" element={<Performance />} />
       </Routes>
     </Router>
   );
