@@ -6,7 +6,7 @@ const CollaboratorCard = ({ name, imgSrc }) => {
       <img
         src={imgSrc}
         alt={name}
-        className="w-16 h-16 rounded-full object-cover mx-auto"
+        className="w-10 h-10 rounded-full object-cover mx-auto"
       />
       <p className="mt-2 text-sm font-medium">{name}</p>
     </div>

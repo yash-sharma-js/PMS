@@ -6,7 +6,7 @@ function Project_Thumbnail({ imgSrc, title }) {
       <img
         src={imgSrc}
         alt={title}
-        className="w-16 h-16 rounded-md object-cover mx-auto"
+        className="w-10 h-10 rounded-md object-cover mx-auto"
       />
       <p className="mt-2 text-sm font-medium">{title}</p>
     </div>

@@ -66,6 +66,7 @@ function UserProfilePage() {
         <Header />
         <main className="ml-56 mr-1 px-20 pt-24 bg-gray-100 min-h-screen">
           <div className="flex flex-col md:flex-row max-w-6xl mx-auto">
+            {/* Left Section */}
             <div
               className="w-full md:w-1/4 bg-white p-4 rounded-md shadow-md border mb-6 md:mb-0"
               style={{
@@ -93,7 +94,12 @@ function UserProfilePage() {
                 <p className="text-sm text-gray-600">✉️ yghori@asite.com</p>
               </div>
             </div>
-            <div className="w-full md:w-2/4 bg-white p-6 rounded-md shadow-md border mx-2">
+
+            {/* Middle Section */}
+            <div
+              className="w-full md:w-2/4 bg-white p-6 rounded-lg shadow-md border mx-2"
+              style={{ maxHeight: "400px", overflowY: "auto" }}
+            >
               <h3 className="text-lg font-semibold mb-4">Edit Profile</h3>
               <form className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -162,7 +168,6 @@ function UserProfilePage() {
                   </select>
                   <select
                     className="w-full px-4 py-2 h-10 border rounded-md"
-                    placeholder="Nationality"
                     onChange={(e) => setDesignation(e.target.value)}
                   >
                     <option>India</option>
@@ -177,8 +182,10 @@ function UserProfilePage() {
                 </div>
               </form>
             </div>
-            <div className="w-full md:w-1/4 space-y-4">
-              <div className="bg-white p-4 rounded-md shadow-md border">
+
+            {/* Right Section */}
+            <div className="w-full md:w-1/4 space-y-4 flex flex-col justify-between">
+              <div className="bg-white p-4 rounded-lg shadow-md border">
                 <h3 className="text-lg font-semibold mb-4">Projects</h3>
                 <div className="flex flex-wrap justify-start">
                   {projects.map((project) => (
@@ -191,7 +198,10 @@ function UserProfilePage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-md shadow-md border">
+              <div
+                className="bg-white p-4 rounded-lg shadow-md border mt-auto"
+                style={{ minHeight: "50vh" }} // Set the minimum height to 50% of the screen height
+              >
                 <h4 className="text-lg font-semibold">UI Developer</h4>
                 <p className="text-sm text-gray-600">
                   Lorem Ipsum is the best sentence in the world.
