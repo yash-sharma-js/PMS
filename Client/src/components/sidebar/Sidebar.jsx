@@ -31,19 +31,23 @@ function Sidebar() {
           </li>
         </Link>
         <hr />
-        <li
-          className={`cursor-pointer flex items-center space-x-2 hover:bg-blue-50 px-4 py-2 rounded-md`}
-        >
-          <span>📊</span>
-          <span className="text-sm font-medium text-gray-700">Work Logs</span>
-        </li>
-        <hr />
-        <li
-          className={`cursor-pointer flex items-center space-x-2 hover:bg-blue-50 px-4 py-2 rounded-md`}
-        >
-          <span>⚙️</span>
-          <span className="text-sm font-medium text-gray-700">Performance</span>
-        </li>
+        <Link to="/performance">
+          <li
+            className={`cursor-pointer flex items-center space-x-2 hover:bg-blue-50 px-4 py-2 rounded-md`}
+          >
+            <span>📊</span>
+            <span className="text-sm font-medium text-gray-700">Work Logs</span>
+          </li>
+          <hr />
+          <li
+            className={`cursor-pointer flex items-center space-x-2 hover:bg-blue-50 px-4 py-2 rounded-md`}
+          >
+            <span>⚙️</span>
+            <span className="text-sm font-medium text-gray-700">
+              Performance
+            </span>
+          </li>
+        </Link>
         <hr />
         <li
           className={`cursor-pointer flex items-center space-x-2 hover:bg-blue-50 px-4 py-2 rounded-md`}

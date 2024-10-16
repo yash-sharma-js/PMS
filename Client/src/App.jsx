@@ -23,7 +23,7 @@ function App() {
         <Route path="/project" element={<ProjectPage />} />
         <Route path="/editprofile" element={<UserProfilePage />} />
         <Route path="/tasks" element={<All_Task />} />
-        <Route path="/Performance" element={<Performance />} />
+        <Route path="/performance" element={<Performance />} />
       </Routes>
     </Router>
   );

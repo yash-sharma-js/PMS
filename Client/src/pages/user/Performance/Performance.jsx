@@ -59,48 +59,79 @@ function Performance() {
         <Sidebar />
 
         {/* Main Content */}
-        <main className="ml-64 p-8 w-full">
+        <main className="ml-56 mr-1 px-20 pr-14 pt-24 w-full">
           <h1 className="text-2xl font-semibold mb-6">Projects</h1>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Project Stats (Left Column) */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-lg font-semibold mb-4">Project Status</h2>
-              <div className="flex justify-center">
-                <div className="w-48 h-48">
-                  {/* Placeholder for Pie chart */}
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <circle cx="50" cy="50" r="45" fill="lightgray" />
-                    {/* Sections of the pie chart */}
-                    <path d="M50 10 A40 40 0 1 1 90 50 L50 50" fill="#3490dc" />
-                    <path
-                      d="M50 50 L90 50 A40 40 0 0 1 50 90 Z"
-                      fill="#38c172"
-                    />
-                    <path
-                      d="M50 50 L50 90 A40 40 0 0 1 10 50 Z"
-                      fill="#e3342f"
-                    />
-                    <path
-                      d="M50 50 L10 50 A40 40 0 0 1 50 10 Z"
-                      fill="#f6993f"
-                    />
-                  </svg>
+            <div className="bg-white p-4 rounded-lg shadow-md flex h-64">
+              {/* Performance Stats Container */}
+              <div className="flex flex-col">
+                <h2 className="text-lg font-semibold mb-2">
+                  Performance Stats
+                </h2>
+                <div className="flex">
+                  <div className="flex-shrink-0 w-48 h-48 relative mr-4">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <circle cx="50" cy="50" r="45" fill="lightgray" />
+                      <path
+                        d="M50 10 A40 40 0 1 1 90 50 L50 50"
+                        fill="#3490dc"
+                      />
+                      <path
+                        d="M50 50 L90 50 A40 40 0 0 1 50 90 Z"
+                        fill="#38c172"
+                      />
+                      <path
+                        d="M50 50 L50 90 A40 40 0 0 1 10 50 Z"
+                        fill="#e3342f"
+                      />
+                      <path
+                        d="M50 50 L10 50 A40 40 0 0 1 50 10 Z"
+                        fill="#f6993f"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <p className="flex items-center text-sm mb-1">
+                      <span
+                        className="w-3 h-3 rounded-full mr-2"
+                        style={{ backgroundColor: "#3490dc" }}
+                      ></span>
+                      Completed
+                    </p>
+                    <p className="flex items-center text-sm mb-1">
+                      <span
+                        className="w-3 h-3 rounded-full mr-2"
+                        style={{ backgroundColor: "#38c172" }}
+                      ></span>
+                      On Hold
+                    </p>
+                    <p className="flex items-center text-sm mb-1">
+                      <span
+                        className="w-3 h-3 rounded-full mr-2"
+                        style={{ backgroundColor: "#e3342f" }}
+                      ></span>
+                      On Progress
+                    </p>
+                    <p className="flex items-center text-sm mb-1">
+                      <span
+                        className="w-3 h-3 rounded-full mr-2"
+                        style={{ backgroundColor: "#f6993f" }}
+                      ></span>
+                      Pending
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4">
-                <p>Completed: 25%</p>
-                <p>On Hold: 25%</p>
-                <p>On Progress: 32%</p>
-                <p>Pending: 18%</p>
               </div>
             </div>
 
             {/* Performance (Middle Column) */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <div
+              className="bg-white p-4 rounded-lg shadow-md h-64"
+              style={{ width: "384px" }}
+            >
               <h2 className="text-lg font-semibold mb-4">Performance</h2>
               <div>
-                {/* Placeholder for Line chart */}
                 <svg viewBox="0 0 200 100" className="w-full h-32">
                   <path
                     d="M10 80 C 40 60, 80 30, 120 50"
@@ -123,8 +154,16 @@ function Performance() {
             </div>
 
             {/* Projects Section (Right Column) */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-lg font-semibold mb-4">Projects</h2>
+            {/* Projects Section (Right Column) */}
+            <div className="bg-white p-4 ml-4 rounded-lg shadow-md h-full">
+              {" "}
+              {/* Set h-full to ensure it stretches */}
+              <div className="flex justify-between items-center mb-2">
+                <h2 className="text-lg font-semibold">Projects</h2>
+                <a href="#" className="text-blue-500">
+                  View All
+                </a>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {projects.map((project) => (
                   <ProjectThumbnail
@@ -134,14 +173,14 @@ function Performance() {
                   />
                 ))}
               </div>
-              <a href="#" className="text-blue-500 mt-4 block">
-                View All
-              </a>
             </div>
           </div>
 
           {/* UI Developers */}
-          <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+          <div
+            className="mt-2 bg-white p-6 rounded-lg shadow-md" // Changed from mt-0 to mt-2
+            style={{ width: "786px" }}
+          >
             <h2 className="text-lg font-semibold mb-4">
               UI Developers ({colleagues.length})
             </h2>
