@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header/Header";
 import TaskItem from "../../../components/task_item/TaskItem";
+import TaskDetailsPopup from "../../../components/task_popup/TaskDetailsPopup";
 import { Link } from "react-router-dom";
 
 function All_Task() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  // Function to toggle popup visibility
+  const handleTaskClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
     <div className="relative min-h-screen bg-gray-100">
       {/* Header */}
@@ -37,7 +49,7 @@ function All_Task() {
             {/* Tasks List */}
             <div className="space-y-4">
               {/* Render the TaskItem component */}
-              <TaskItem />
+              <TaskItem onClick={handleTaskClick} />
             </div>
 
             {/* Footer */}
@@ -45,6 +57,9 @@ function All_Task() {
               <p>1 task</p>
               <p>15 files</p>
             </div>
+
+            {/* Render TaskDetailsPopup conditionally */}
+            {isPopupOpen && <TaskDetailsPopup onClose={closePopup} />}
           </div>
         </div>
       </div>

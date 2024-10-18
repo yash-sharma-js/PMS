@@ -1,8 +1,11 @@
 import React from "react";
 
-function TaskItem() {
+function TaskItem({ onClick }) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+    <div
+      className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center cursor-pointer"
+      onClick={onClick}
+    >
       <div>
         <h3 className="font-semibold">
           Make an Automatic Payment System that enables the design
