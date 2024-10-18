@@ -12,17 +12,17 @@ function TaskDetailsPopup({ onClose }) {
   const [description, setDescription] = useState(
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt metus nec odio volutpat, et venenatis nulla malesuada..."
   );
-  const [documentName, setDocumentName] = useState("No documents attached"); // State for document name
+  const [documentName, setDocumentName] = useState("No documents attached");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setDocumentName(file.name); // Update document name state
+      setDocumentName(file.name);
     }
   };
 
   const handleAddAttachment = () => {
-    fileInputRef.current.click(); // Trigger the file input dialog
+    fileInputRef.current.click();
   };
 
   const handleDescriptionChange = (event) => {
@@ -44,8 +44,6 @@ function TaskDetailsPopup({ onClose }) {
 
         <div className="mb-4 space-y-3">
           <p className="flex items-center mb-2">
-            {" "}
-            {/* Added margin-bottom */}
             <FaExclamationTriangle className="text-black mr-2" />
             <strong>Priority</strong>
             <span className="text-white bg-red-500 rounded-full px-2 py-1 ml-4">
@@ -53,8 +51,6 @@ function TaskDetailsPopup({ onClose }) {
             </span>
           </p>
           <p className="flex items-center mb-2">
-            {" "}
-            {/* Added margin-bottom */}
             <FaClipboardCheck className="text-black mr-2" />
             <strong>Status</strong>
             <span className="text-white bg-green-500 rounded-full px-2 py-1 ml-4">
@@ -62,22 +58,16 @@ function TaskDetailsPopup({ onClose }) {
             </span>
           </p>
           <p className="flex items-center mb-2">
-            {" "}
-            {/* Added margin-bottom */}
             <FaUser className="text-black mr-2" />
             <strong>Owner</strong>
             <span className="ml-4">UI Sharks</span>
           </p>
           <p className="flex items-center mb-2">
-            {" "}
-            {/* Added margin-bottom */}
             <FaUser className="text-black mr-2" />
             <strong>Assignee</strong>
             <span className="ml-4">Coder bhai</span>
           </p>
           <p className="flex items-center mb-2">
-            {" "}
-            {/* Added margin-bottom */}
             <FaCalendarAlt className="text-black mr-2" />
             <strong>Due Date</strong>
             <span className="ml-4">March 24th, 2023</span>
@@ -99,7 +89,7 @@ function TaskDetailsPopup({ onClose }) {
               className="hidden"
               onChange={handleFileChange}
             />
-            <p>{documentName}</p> {/* Display the document name */}
+            <p>{documentName}</p>
           </div>
         </div>
 

@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 function All_Task() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  // Function to toggle popup visibility
   const handleTaskClick = () => {
     setIsPopupOpen(true);
   };
@@ -19,17 +18,13 @@ function All_Task() {
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Header */}
       <Header />
 
       <div className="flex">
-        {/* Sidebar */}
         <Sidebar />
 
-        {/* Main content container */}
         <div className="ml-56 mr-1 px-20 pt-24 flex-1">
           <div className="p-8 w-full max-w-7xl mx-auto bg-white shadow-md rounded-lg mb-10 min-h-[75vh]">
-            {/* Project and Task Header */}
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h1 className="text-2xl font-semibold">Addodle</h1>
@@ -46,19 +41,15 @@ function All_Task() {
               </Link>
             </div>
 
-            {/* Tasks List */}
             <div className="space-y-4">
-              {/* Render the TaskItem component */}
               <TaskItem onClick={handleTaskClick} />
             </div>
 
-            {/* Footer */}
             <div className="flex justify-between items-center mt-6 text-gray-500">
               <p>1 task</p>
               <p>15 files</p>
             </div>
 
-            {/* Render TaskDetailsPopup conditionally */}
             {isPopupOpen && <TaskDetailsPopup onClose={closePopup} />}
           </div>
         </div>
