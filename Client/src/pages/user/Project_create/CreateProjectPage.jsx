@@ -25,7 +25,7 @@ const CreateProjectPage = () => {
     }
   };
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     const newProject = {
       id: Date.now(), // Add a unique ID for each project
       title: projectTitle,
@@ -36,31 +36,37 @@ const CreateProjectPage = () => {
       roles: projectRoles,
     };
 
-    // Retrieve existing projects from local storage
-    const existingProjects =
-      JSON.parse(localStorage.getItem("projectsData")) || [];
+    try {
+      const response = await fetch("http://localhost:4000/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProject),
+      });
 
-    // Add the new project to the list
-    const updatedProjects = [...existingProjects, newProject];
+      if (response.ok) {
+        setSuccessMessage(true); // Show success message
 
-    // Save updated list back to local storage
-    localStorage.setItem("projectsData", JSON.stringify(updatedProjects));
+        // Reset form fields
+        setProjectTitle(""); // Clear project title
+        setProjectType(""); // Clear project type
+        setStartDate(""); // Clear start date
+        setEndDate(""); // Clear end date
+        setProjectDescription(""); // Clear description field
+        setProjectRoles(["Team Lead"]); // Reset roles to initial state
+        setDropdownOpen(false); // Close the dropdown if it's open
 
-    setSuccessMessage(true); // Show success message
-
-    // Reset form fields
-    setProjectTitle(""); // Clear project title
-    setProjectType(""); // Clear project type
-    setStartDate(""); // Clear start date
-    setEndDate(""); // Clear end date
-    setProjectDescription(""); // Clear description field
-    setProjectRoles(["Team Lead"]); // Reset roles to initial state
-    setDropdownOpen(false); // Close the dropdown if it's open
-
-    // Hide success message after 3 seconds
-    setTimeout(() => {
-      setSuccessMessage(false);
-    }, 3000);
+        // Hide success message after 3 seconds
+        setTimeout(() => {
+          setSuccessMessage(false);
+        }, 3000);
+      } else {
+        console.error("Failed to create project.");
+      }
+    } catch (error) {
+      console.error("Error creating project:", error);
+    }
   };
 
   return (

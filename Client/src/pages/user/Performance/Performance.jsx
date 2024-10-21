@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header/Header";
 import ProjectThumbnail from "../../../components/project_thumbnail/Project_Thumbnail";
@@ -36,6 +36,16 @@ function Performance() {
       title: "Gothic Art",
       imgSrc: "https://example.com/gothic.png",
     },
+    {
+      id: 7,
+      title: "Ghostly Visions",
+      imgSrc: "https://example.com/ghostly.png",
+    },
+    {
+      id: 8,
+      title: "Eerie Echoes",
+      imgSrc: "https://example.com/eerie.png",
+    },
   ];
 
   const colleagues = [
@@ -49,8 +59,50 @@ function Performance() {
       name: "Jane Smith",
       imgSrc: "https://example.com/developer2.png",
     },
-    // Add more colleagues as necessary
+    {
+      id: 3,
+      name: "Alice Johnson",
+      imgSrc: "https://example.com/developer3.png",
+    },
+    {
+      id: 4,
+      name: "Bob Brown",
+      imgSrc: "https://example.com/developer4.png",
+    },
+    {
+      id: 5,
+      name: "Charlie Davis",
+      imgSrc: "https://example.com/developer5.png",
+    },
+    {
+      id: 6,
+      name: "Diana Prince",
+      imgSrc: "https://example.com/developer6.png",
+    },
   ];
+
+  // Pagination state for UI Developers
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showAllDevelopers, setShowAllDevelopers] = useState(false); // State for showing all developers
+  const [showAllProjects, setShowAllProjects] = useState(false); // State for showing all projects
+
+  const developersPerPage = 4;
+
+  // Logic for displaying developers based on the current page
+  const indexOfLastDeveloper = currentPage * developersPerPage;
+  const indexOfFirstDeveloper = indexOfLastDeveloper - developersPerPage;
+  const currentDevelopers = showAllDevelopers
+    ? colleagues // If "View All" is clicked, show all colleagues
+    : colleagues.slice(indexOfFirstDeveloper, indexOfLastDeveloper);
+
+  const totalPages = Math.ceil(colleagues.length / developersPerPage);
+
+  // Logic for displaying projects based on showAllProjects state
+  const currentProjects = showAllProjects ? projects : projects.slice(0, 6); // Show first 6 projects if not expanded
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="bg-blue-50 min-h-screen">
@@ -154,18 +206,18 @@ function Performance() {
             </div>
 
             {/* Projects Section (Right Column) */}
-            {/* Projects Section (Right Column) */}
-            <div className="bg-white p-4 ml-4 rounded-lg shadow-md h-full">
-              {" "}
-              {/* Set h-full to ensure it stretches */}
+            <div className="bg-white p-4 ml-4 rounded-lg shadow-md h-auto">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-lg font-semibold">Projects</h2>
-                <a href="#" className="text-blue-500">
-                  View All
-                </a>
+                <button
+                  onClick={() => setShowAllProjects(!showAllProjects)} // Toggle the showAllProjects state
+                  className="text-blue-500"
+                >
+                  {showAllProjects ? "Show Less" : "View All"}
+                </button>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                {projects.map((project) => (
+                {currentProjects.map((project) => (
                   <ProjectThumbnail
                     key={project.id}
                     imgSrc={project.imgSrc}
@@ -176,16 +228,18 @@ function Performance() {
             </div>
           </div>
 
-          {/* UI Developers */}
+          {/* Team Members Section */}
           <div
-            className="mt-2 bg-white p-6 rounded-lg shadow-md" // Changed from mt-0 to mt-2
-            style={{ width: "786px" }}
+            className={`mt-2 mb-4 bg-white p-6 rounded-lg shadow-md transition-all duration-300 ${
+              showAllDevelopers ? "h-auto" : "h-52"
+            }`} // Fixed height when collapsed
+            style={{ width: "770px" }}
           >
             <h2 className="text-lg font-semibold mb-4">
-              UI Developers ({colleagues.length})
+              Team Members ({colleagues.length})
             </h2>
             <div className="grid grid-cols-4 gap-4">
-              {colleagues.map((colleague) => (
+              {currentDevelopers.map((colleague) => (
                 <CollaboratorCard
                   key={colleague.id}
                   imgSrc={colleague.imgSrc}
@@ -193,18 +247,32 @@ function Performance() {
                 />
               ))}
             </div>
-            <div className="mt-4 flex justify-between">
-              <a href="#" className="text-blue-500">
-                View All
-              </a>
-              <div className="flex space-x-2">
-                <button className="px-3 py-1 bg-gray-200 rounded">1</button>
-                <button className="px-3 py-1 bg-blue-500 text-white rounded">
-                  2
+            {/* Pagination for Developers */}
+            {!showAllDevelopers && (
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={() => setShowAllDevelopers(true)}
+                  className="text-blue-500"
+                >
+                  View All
                 </button>
-                <button className="px-3 py-1 bg-gray-200 rounded">3</button>
+                <div>
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => handlePageChange(index + 1)}
+                      className={`px-2 py-1 border rounded ${
+                        currentPage === index + 1
+                          ? "bg-blue-500 text-white"
+                          : "text-blue-500"
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </main>
       </div>

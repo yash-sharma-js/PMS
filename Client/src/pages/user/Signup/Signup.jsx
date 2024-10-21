@@ -5,7 +5,7 @@ import Input from "../../../components/input/Input";
 
 function Signup() {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     termsAccepted: false,
@@ -28,13 +28,14 @@ function Signup() {
     console.log("Form Data Submitted:", formData);
 
     try {
-      const response = await fetch("http://localhost:8080/signup", {
+      const response = await fetch("http://localhost:4000/signup", {
+        // Update the API endpoint here
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: formData.name,
+          username: formData.username, // Update to match your backend
           email: formData.email,
           password: formData.password,
         }),
@@ -50,7 +51,7 @@ function Signup() {
       const data = await response.json();
       setSuccessMessage("Signup successful! Redirecting to login...");
       setFormData({
-        name: "",
+        username: "",
         email: "",
         password: "",
         termsAccepted: false,
@@ -82,8 +83,8 @@ function Signup() {
             <Input
               label="Name"
               type="text"
-              name="name"
-              value={formData.name}
+              name="username" // Update to match the backend
+              value={formData.username}
               onChange={handleChange}
               required
               placeholder="Enter your name"

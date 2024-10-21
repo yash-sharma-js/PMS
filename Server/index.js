@@ -28,5 +28,5 @@ app.use('/api/projects', projectRoutes);
 
 
 app.post('/signup', signUp);
-app.get('/signin', signIn);
+app.post('/signin', signIn);
 app.post('/addFriends', addfriend);
