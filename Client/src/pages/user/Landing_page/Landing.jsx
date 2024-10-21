@@ -137,7 +137,7 @@ const LandingPage = () => {
                     fontFamily: "'Roboto', sans-serif",
                     color: "#541554",
                   }}
-                  to="/signin"
+                  to="/signup"
                 >
                   REGISTER WITH EMAIL
                 </Link>
