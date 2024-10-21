@@ -7,6 +7,9 @@ import CreateProject from "./pages/user/Project_create/CreateProjectPage";
 import CreateTask from "./pages/user/Project_create/createTask";
 import Profile from "./pages/user/Profile/Profile";
 import ProjectPage from "./pages/user/All_projects/ProjectPage";
+import UserProfilePage from "./pages/user/edit_profile/UserProfilePage";
+import All_Task from "./pages/user/Project_create/All_Task";
+import Performance from "./pages/user/Performance/Performance";
 function App() {
   return (
     <Router>
@@ -16,8 +19,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/createproject" element={<CreateProject />} />
         <Route path="/createtask" element={<CreateTask />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/project" element={<ProjectPage />} />
+        <Route path="/editprofile" element={<UserProfilePage />} />
+        <Route path="/tasks" element={<All_Task />} />
+        <Route path="/performance" element={<Performance />} />
       </Routes>
     </Router>
   );

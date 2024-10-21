@@ -26,7 +26,7 @@ function Header() {
           placeholder="Search for anything..."
           className="px-4 py-2 border border-gray-300 rounded-full focus:outline-none"
         />
-        <div className="flex items-center">
+        <Link to = "/editprofile" ><div className="flex items-center">
           <div className="text-right mr-2">
             <p className="text-sm font-semibold">{username}</p>
             <p className="text-xs text-gray-500">India</p>
@@ -37,6 +37,7 @@ function Header() {
             alt="User Avatar"
           />
         </div>
+        </Link>
       </div>
     </nav>
   );
