@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ProjectRolesSelect = ({ value, onChange }) => {
-  const [selectedRoles, setSelectedRoles] = useState(value || ["Team Lead"]);
-  const allRoles = ["Team Lead", "Developer", "Designer", "QA"];
+  const [selectedRoles, setSelectedRoles] = useState(value || ["Developer"]);
+  const allRoles = ["front END", "Developer", "Designer", "QA"];
 
   const handleRoleChange = (event) => {
     const { value, selected } = event.target;
