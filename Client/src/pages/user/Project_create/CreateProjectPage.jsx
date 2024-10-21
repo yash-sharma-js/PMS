@@ -4,6 +4,7 @@ import DateInput from "../../../components/date_input/DateInput";
 import ProjectDescription from "../../../components/project_dec/project_dec";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header/Header";
+import * as jwtDecode from "jwt-decode";
 
 const CreateProjectPage = () => {
   const [projectTitle, setProjectTitle] = useState("");
@@ -26,8 +27,13 @@ const CreateProjectPage = () => {
   };
 
   const handleCreateProject = async () => {
+    // Retrieve the token from local storage
+    const token = localStorage.getItem("token"); // Adjust this if your token is stored differently
+    const decodedToken = jwt_decode(token);
+    const userId = jwtDecode.default(token); // Access the user ID from the decoded token
+
     const newProject = {
-      id: Date.now(), // Add a unique ID for each project
+      userId, // Include userId here
       title: projectTitle,
       type: projectType,
       startDate,
@@ -46,16 +52,18 @@ const CreateProjectPage = () => {
       });
 
       if (response.ok) {
+        const project = await response.json();
+        console.log("Project created:", project);
         setSuccessMessage(true); // Show success message
 
         // Reset form fields
-        setProjectTitle(""); // Clear project title
-        setProjectType(""); // Clear project type
-        setStartDate(""); // Clear start date
-        setEndDate(""); // Clear end date
-        setProjectDescription(""); // Clear description field
-        setProjectRoles(["Team Lead"]); // Reset roles to initial state
-        setDropdownOpen(false); // Close the dropdown if it's open
+        setProjectTitle("");
+        setProjectType("");
+        setStartDate("");
+        setEndDate("");
+        setProjectDescription("");
+        setProjectRoles(["Team Lead"]);
+        setDropdownOpen(false);
 
         // Hide success message after 3 seconds
         setTimeout(() => {

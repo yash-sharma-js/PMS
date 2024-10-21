@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Signin from "./pages/user/Signin/Signin";
 import Signup from "./pages/user/Signup/Signup";
 import LandingPage from "./pages/user/Landing_page/Landing";
@@ -10,19 +15,102 @@ import ProjectPage from "./pages/user/All_projects/ProjectPage";
 import UserProfilePage from "./pages/user/edit_profile/UserProfilePage";
 import All_Task from "./pages/user/Project_create/All_Task";
 import Performance from "./pages/user/Performance/Performance";
+
+// Mock function to check if the user is logged in
+const isAuthenticated = () => {
+  // Replace this with your actual authentication logic
+  return localStorage.getItem("authToken") !== null;
+};
+
+// Private route component to protect routes
+const PrivateRoute = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/signin" />;
+};
+
+// Public route component to prevent access to home/signup if already logged in
+const PublicRoute = ({ children }) => {
+  return isAuthenticated() ? <Navigate to="/project" /> : children;
+};
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/createproject" element={<CreateProject />} />
-        <Route path="/createtask" element={<CreateTask />} />
-        <Route path="/project" element={<ProjectPage />} />
-        <Route path="/editprofile" element={<UserProfilePage />} />
-        <Route path="/tasks" element={<All_Task />} />
-        <Route path="/performance" element={<Performance />} />
+        {/* Public routes */}
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <LandingPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <PublicRoute>
+              <Signin />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
+
+        {/* Private routes */}
+        <Route
+          path="/createproject"
+          element={
+            <PrivateRoute>
+              <CreateProject />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/createtask"
+          element={
+            <PrivateRoute>
+              <CreateTask />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/project"
+          element={
+            <PrivateRoute>
+              <ProjectPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/editprofile"
+          element={
+            <PrivateRoute>
+              <UserProfilePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <PrivateRoute>
+              <All_Task />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/performance"
+          element={
+            <PrivateRoute>
+              <Performance />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );
