@@ -1,51 +1,89 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 function CreateProjectCard({
   projectId,
+  title,
   description,
+  date,
+  roles = [],
   issues,
-  teamMembers = [],
   onDelete,
 }) {
   const [projectData, setProjectData] = useState(null);
+  const [isEditingTitle, setIsEditingTitle] = useState(false); // State to toggle edit mode
+  const [newTitle, setNewTitle] = useState(title); // State to hold the new title
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the project data from local storage
-    const storedProjects =
-      JSON.parse(localStorage.getItem("projectsData")) || [];
+    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
     const foundProject = storedProjects.find(
       (project) => project.id === projectId
     );
-    setProjectData(foundProject); // Set project data to state
+    setProjectData(foundProject);
   }, [projectId]);
 
   const handleEditTitle = () => {
-    navigate("/create-project");
+    setIsEditingTitle(true); // Enable editing mode
+  };
+
+  const handleSaveTitle = () => {
+    const updatedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+    const updatedProject = updatedProjects.map((project) => {
+      if (project.id === projectId) {
+        return { ...project, title: newTitle }; // Update the title
+      }
+      return project;
+    });
+
+    localStorage.setItem("projects", JSON.stringify(updatedProject)); // Save updated project to localStorage
+    setProjectData({ ...projectData, title: newTitle }); // Update component state
+    setIsEditingTitle(false); // Exit editing mode
   };
 
   const handleDeleteProject = () => {
-    onDelete(projectId); // Call delete handler with project ID to delete the specific project
+    onDelete(projectId);
   };
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 w-full max-w-[400px] mx-auto mb-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-800">
-          {projectData?.title || "No Title Available"}
-        </h2>
+        {isEditingTitle ? (
+          // Render an input field when editing
+          <input
+            type="text"
+            className="border px-2 py-1 text-lg font-semibold text-gray-800 rounded"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            onBlur={handleSaveTitle} // Save on blur (when user clicks outside the input)
+            onKeyDown={(e) => e.key === "Enter" && handleSaveTitle()} // Save when Enter is pressed
+          />
+        ) : (
+          // Render the title normally
+          <h2 className="text-lg font-semibold text-gray-800">
+            {newTitle || projectData?.title || "No Title Available"}
+          </h2>
+        )}
         <div className="flex items-center space-x-2">
+          {isEditingTitle ? (
+            <button
+              onClick={handleSaveTitle}
+              className="text-green-500 text-sm hover:underline"
+            >
+              <FaSave className="inline-block" />
+            </button>
+          ) : (
+            <button
+              onClick={handleEditTitle}
+              className="text-blue-500 text-sm hover:underline"
+            >
+              <FaEdit className="inline-block" />
+            </button>
+          )}
           <button
-            onClick={handleEditTitle}
-            className="text-blue-500 text-sm hover:underline"
-          >
-            <FaEdit className="inline-block" />
-          </button>
-          <button
-            onClick={handleDeleteProject} // Call to delete specific project
+            onClick={handleDeleteProject}
             className="text-red-500 text-sm hover:underline"
           >
             <FaTrash className="inline-block" />
@@ -56,29 +94,31 @@ function CreateProjectCard({
       <hr className="my-2 border-t border-gray-300" />
 
       <p className="text-sm text-gray-600 mt-2">
-        {description || "No description provided"}
+        {description || projectData?.description || "No description provided"}
       </p>
 
       <div className="flex justify-between items-center mt-4">
         <p className="text-sm text-gray-500">
-          📅 {projectData?.startDate || "No start date"} -{" "}
-          {projectData?.endDate || "No end date"}
+          📅{" "}
+          {date ||
+            `${projectData?.startDate} - ${projectData?.endDate}` ||
+            "No dates available"}
         </p>
         <p className="text-sm text-gray-500">{issues || 0} Issues</p>
       </div>
 
       <div className="flex items-center space-x-2 mt-4">
-        {teamMembers.length > 0 ? (
-          teamMembers.map((member, index) => (
-            <img
+        {roles.length > 0 ? (
+          roles.map((role, index) => (
+            <span
               key={index}
-              className="w-8 h-8 rounded-full border-2 border-gray-300"
-              src={member.avatar}
-              alt={`Team member ${index + 1}`}
-            />
+              className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"
+            >
+              {role}
+            </span>
           ))
         ) : (
-          <div className="text-sm text-gray-500">No team members</div>
+          <div className="text-sm text-gray-500">No roles assigned</div>
         )}
       </div>
     </div>
@@ -88,9 +128,11 @@ function CreateProjectCard({
 // Add prop types for better type checking
 CreateProjectCard.propTypes = {
   projectId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  issues: PropTypes.number.isRequired,
-  teamMembers: PropTypes.array,
+  date: PropTypes.string.isRequired,
+  roles: PropTypes.array,
+  issues: PropTypes.number,
   onDelete: PropTypes.func.isRequired,
 };
 

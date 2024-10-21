@@ -19,7 +19,7 @@ import Performance from "./pages/user/Performance/Performance";
 // Mock function to check if the user is logged in
 const isAuthenticated = () => {
   // Replace this with your actual authentication logic
-  return localStorage.getItem("authToken") !== null;
+  return localStorage.getItem("token") !== null;
 };
 
 // Private route component to protect routes

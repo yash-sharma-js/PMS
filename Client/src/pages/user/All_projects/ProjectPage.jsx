@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header/Header";
 import CreateProjectCard from "../../../components/created_project_card/CreateProjectCard";
@@ -9,7 +9,7 @@ const ProjectsPage = () => {
 
   // Fetch project data from localStorage on component mount
   useEffect(() => {
-    const storedProjects = JSON.parse(localStorage.getItem("projectsData"));
+    const storedProjects = JSON.parse(localStorage.getItem("projects"));
     if (storedProjects) {
       setProjects(storedProjects); // Update state with fetched projects
     }
@@ -26,7 +26,7 @@ const ProjectsPage = () => {
     setProjects(updatedProjects);
 
     // Update localStorage with the modified projects array
-    localStorage.setItem("projectsData", JSON.stringify(updatedProjects));
+    localStorage.setItem("projects", JSON.stringify(updatedProjects));
   };
 
   return (
@@ -55,10 +55,10 @@ const ProjectsPage = () => {
                 <CreateProjectCard
                   key={project.id} // Unique key based on project ID
                   projectId={project.id} // Pass project ID to identify each card
-                  description={project.description}
-                  date={project.date}
-                  issues={project.issues}
-                  teamMembers={project.teamMembers}
+                  title={project.title} // Display title
+                  description={project.description} // Display description
+                  date={`${project.startDate} - ${project.endDate}`} // Display start and end date
+                  roles={project.roles} // Display team roles
                   onDelete={handleDeleteProject} // Pass delete handler
                 />
               ))}

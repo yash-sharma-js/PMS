@@ -23,10 +23,10 @@ function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login Data Submitted:", formData);
+
     try {
       console.log("start");
       const response = await fetch("http://localhost:4000/signin", {
-        // Update the API endpoint here
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,9 +39,13 @@ function Signin() {
         const data = await response.json();
         console.log("Login successful:", data);
         console.log("token", data.token);
+
+        // Store the token in local storage
         localStorage.setItem("token", data.token);
-        console.log("token added"); // Store the token in local storage
-        navigate("/project"); // Redirect after successful login
+        console.log("token added");
+
+        // Redirect after successful login
+        navigate("/project");
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || "Invalid credentials.");

@@ -4,7 +4,6 @@ import DateInput from "../../../components/date_input/DateInput";
 import ProjectDescription from "../../../components/project_dec/project_dec";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header/Header";
-import * as jwtDecode from "jwt-decode";
 
 const CreateProjectPage = () => {
   const [projectTitle, setProjectTitle] = useState("");
@@ -18,22 +17,12 @@ const CreateProjectPage = () => {
 
   const allRoles = ["Team Lead", "Developer", "Designer", "QA", "Manager"];
 
-  const handleRoleChange = (role) => {
-    if (projectRoles.includes(role)) {
-      setProjectRoles(projectRoles.filter((r) => r !== role));
-    } else {
-      setProjectRoles([...projectRoles, role]);
-    }
-  };
-
-  const handleCreateProject = async () => {
-    // Retrieve the token from local storage
+  const handleCreateProject = async (e) => {
+    // Retrieve the token from local storage (if applicable)
     const token = localStorage.getItem("token"); // Adjust this if your token is stored differently
-    const decodedToken = jwt_decode(token);
-    const userId = jwtDecode.default(token); // Access the user ID from the decoded token
 
     const newProject = {
-      userId, // Include userId here
+      id: Date.now(), // Create a unique ID for the project
       title: projectTitle,
       type: projectType,
       startDate,
@@ -43,35 +32,60 @@ const CreateProjectPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newProject),
-      });
+      // Save project details to local storage
+      const existingProjects =
+        JSON.parse(localStorage.getItem("projects")) || [];
+      const updatedProjects = [...existingProjects, newProject];
+      localStorage.setItem("projects", JSON.stringify(updatedProjects));
 
-      if (response.ok) {
-        const project = await response.json();
-        console.log("Project created:", project);
-        setSuccessMessage(true); // Show success message
+      // Simulate API call (uncomment if you want to send it to backend)
+      // const response = await fetch("http://localhost:4000/projects", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${token}`, // Include token if needed
+      //   },
+      //   body: JSON.stringify(newProject),
+      // });
 
-        // Reset form fields
-        setProjectTitle("");
-        setProjectType("");
-        setStartDate("");
-        setEndDate("");
-        setProjectDescription("");
-        setProjectRoles(["Team Lead"]);
-        setDropdownOpen(false);
+      // if (response.ok) {
+      //   const project = await response.json();
+      //   console.log("Project created:", project);
+      //   setSuccessMessage(true); // Show success message
 
-        // Hide success message after 3 seconds
-        setTimeout(() => {
-          setSuccessMessage(false);
-        }, 3000);
-      } else {
-        console.error("Failed to create project.");
-      }
+      //   // Reset form fields
+      //   setProjectTitle("");
+      //   setProjectType("");
+      //   setStartDate("");
+      //   setEndDate("");
+      //   setProjectDescription("");
+      //   setProjectRoles(["Team Lead"]);
+      //   setDropdownOpen(false);
+
+      //   // Hide success message after 3 seconds
+      //   setTimeout(() => {
+      //     setSuccessMessage(false);
+      //   }, 3000);
+      // } else {
+      //   console.error("Failed to create project.");
+      // }
+
+      // Show success message for local storage operation
+      setSuccessMessage(true); // Show success message
+
+      // Reset form fields
+      setProjectTitle("");
+      setProjectType("");
+      setStartDate("");
+      setEndDate("");
+      setProjectDescription("");
+      setProjectRoles(["Team Lead"]);
+      setDropdownOpen(false);
+
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 3000);
     } catch (error) {
       console.error("Error creating project:", error);
     }

@@ -1,26 +1,21 @@
 import React from "react";
 
-function TaskItem({ onClick }) {
+function TaskItem({ task, onClick }) {
   return (
     <div
       className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center cursor-pointer"
       onClick={onClick}
     >
       <div>
-        <h3 className="font-semibold">
-          Make an Automatic Payment System that enables the design
-        </h3>
+        <h3 className="font-semibold">{task.title}</h3>
         <p className="text-gray-500 text-sm">
-          #4622235 Opened 10 days ago by Yash Gheri
+          #{task.id} Opened {task.startDate} by {task.assignee}
         </p>
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-2">
           <span className="bg-red-100 text-red-500 px-2 py-1 rounded-full">
-            Cancelled
-          </span>
-          <span className="bg-green-100 text-green-500 px-2 py-1 rounded-full">
-            Completed
+            {task.status || "Pending"}
           </span>
         </div>
         <div className="text-green-500">00:30:00</div>

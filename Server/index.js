@@ -5,7 +5,7 @@ const app = express();
 const dbconnect = require('./Config/dbconnect');
 const { signUp, signIn } = require('./Auth/signup');
 const projectRoutes = require('./Routes/project.route');
-const { addfriend, editUserProfile } = require('./Controllers/user.controller');
+const { addfriend, editUserProfile, GetUserDetails } = require('./Controllers/user.controller');
 // Use the correct app object
 
 // middlewares
@@ -29,5 +29,6 @@ app.use('/api/projects', projectRoutes);
 
 app.post('/signup', signUp);
 app.post('/signin', signIn);
-app.post('/addFriends', addfriend);
-app.put('/editProfile',editUserProfile);
+// app.post('/addFriends', addfriend);
+// app.put('/editProfile',editUserProfile);
+// app.get('/user/me',GetUserDetails)

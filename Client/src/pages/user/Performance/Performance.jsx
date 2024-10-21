@@ -9,32 +9,38 @@ function Performance() {
     {
       id: 1,
       title: "Emo Stuff",
-      imgSrc: "https://example.com/emo.png",
+      imgSrc:
+        "https://media.istockphoto.com/id/1074983828/photo/sharing-ideas-concepts-with-papernote-writing-strategy-on-wall-glass-office-business-marketing.webp?a=1&b=1&s=612x612&w=0&k=20&c=Z1YwkBtEqhdz72ALF1ohvS2WRTweJrIBtGQFD__bm8Y=",
     },
     {
       id: 2,
       title: "Tim Burton",
-      imgSrc: "https://example.com/timburton.png",
+      imgSrc:
+        "https://images.unsplash.com/photo-1625722723669-389a6feb52f2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvamVjdHN8ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 3,
       title: "Halloween",
-      imgSrc: "https://example.com/halloween.png",
+      imgSrc:
+        "https://images.unsplash.com/photo-1557200134-3103da7b6bff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2plY3RzfGVufDB8fDB8fHww",
     },
     {
       id: 4,
       title: "Spooky Art",
-      imgSrc: "https://example.com/spooky.png",
+      imgSrc:
+        "https://images.unsplash.com/photo-1625722662233-297060231b85?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2plY3RzfGVufDB8fDB8fHww",
     },
     {
       id: 5,
       title: "Dark Art",
-      imgSrc: "https://example.com/darkart.png",
+      imgSrc:
+        "https://media.istockphoto.com/id/817688664/photo/skyscraper-being-built-in-the-middle-of-city.webp?a=1&b=1&s=612x612&w=0&k=20&c=wfXyH6OAj3DfJQQapgBNPYPi77A8YUoIZFURo6dUCtM=",
     },
     {
       id: 6,
       title: "Gothic Art",
-      imgSrc: "https://example.com/gothic.png",
+      imgSrc:
+        "https://media.istockphoto.com/id/1408022364/photo/multicultural-designer-sharing-ideas-during-a-meeting.webp?a=1&b=1&s=612x612&w=0&k=20&c=MIwVw_5y9ILD9FJ_qOgma7pk36WEgdlvDfBtsgOsP7g=",
     },
     {
       id: 7,
@@ -52,32 +58,38 @@ function Performance() {
     {
       id: 1,
       name: "John Doe",
-      imgSrc: "https://example.com/developer1.png",
+      imgSrc:
+        "https://plus.unsplash.com/premium_photo-1669879825881-6d4e4bde67d5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fHww",
     },
     {
       id: 2,
       name: "Jane Smith",
-      imgSrc: "https://example.com/developer2.png",
+      imgSrc:
+        "https://media.istockphoto.com/id/1005817658/photo/middle-aged-man-with-pleasant-face-expression.webp?a=1&b=1&s=612x612&w=0&k=20&c=_UzbE9ppjz36N_Iew0-LEF60CMwQZbWwi648Qti6TTc=",
     },
     {
       id: 3,
       name: "Alice Johnson",
-      imgSrc: "https://example.com/developer3.png",
+      imgSrc:
+        "https://media.istockphoto.com/id/1279844456/photo/young-indian-business-woman-entrepreneur-looking-at-camera-in-the-office.webp?a=1&b=1&s=612x612&w=0&k=20&c=p5E4CYHTh74qYhpypiwn5u-9_DP5INYMezDmME5oHFg=",
     },
     {
       id: 4,
       name: "Bob Brown",
-      imgSrc: "https://example.com/developer4.png",
+      imgSrc:
+        "https://plus.unsplash.com/premium_photo-1672691612717-954cdfaaa8c5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 5,
       name: "Charlie Davis",
-      imgSrc: "https://example.com/developer5.png",
+      imgSrc:
+        "https://images.unsplash.com/photo-1573496358961-3c82861ab8f4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww",
     },
     {
       id: 6,
       name: "Diana Prince",
-      imgSrc: "https://example.com/developer6.png",
+      imgSrc:
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmVzc2lvbmFsJTIwbWVufGVufDB8fDB8fHww",
     },
   ];
 
@@ -248,14 +260,14 @@ function Performance() {
               ))}
             </div>
             {/* Pagination for Developers */}
-            {!showAllDevelopers && (
-              <div className="flex justify-between mt-4">
-                <button
-                  onClick={() => setShowAllDevelopers(true)}
-                  className="text-blue-500"
-                >
-                  View All
-                </button>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={() => setShowAllDevelopers(!showAllDevelopers)}
+                className="text-blue-500"
+              >
+                {showAllDevelopers ? "View Less" : "View All"}
+              </button>
+              {!showAllDevelopers && (
                 <div>
                   {Array.from({ length: totalPages }, (_, index) => (
                     <button
@@ -271,8 +283,8 @@ function Performance() {
                     </button>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </main>
       </div>

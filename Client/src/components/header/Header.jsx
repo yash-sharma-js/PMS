@@ -1,41 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import logo from "../../Images/Landing_page_img/logo.jpg";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const [username, setUsername] = useState("Account"); // Default to "Account"
-
-  useEffect(() => {
-    // Fetch user data from backend
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("token"); // Assuming you store token in local storage
-        const response = await fetch("http://localhost:4000/user/me", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include token in the request
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
-        }
-
-        const userData = await response.json();
-        setUsername(userData.name); // Set the username from fetched data
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, []); // Empty dependency array means this effect runs once on mount
+  // Fetch user data from local storage
+  const userData = JSON.parse(localStorage.getItem("userSignupData"));
+  const username = userData ? userData.name : "Account"; // Default to "Account" if no user is found
 
   return (
     <nav className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3 fixed w-full z-10 top-0 shadow-md">
       <div className="text-xl font-bold">
         <Link to="/">
+          {" "}
           <img
             src={logo}
             alt="Logo"
@@ -53,7 +29,7 @@ function Header() {
         <Link to="/editprofile">
           <div className="flex items-center">
             <div className="text-right mr-2">
-              <p className="text-sm font-semibold">{username}</p>
+              <p className="text-sm font-semibold">user</p>
               <p className="text-xs text-gray-500">India</p>
             </div>
             <img

@@ -17,8 +17,9 @@ const CreateTask = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle task creation logic here
+
     const taskData = {
+      id: Date.now(), // Generate a unique ID using timestamp
       title: taskTitle,
       type: taskType,
       startDate,
@@ -26,9 +27,26 @@ const CreateTask = () => {
       description: taskDescription,
       assignee,
     };
-    // Save to Local Storage or perform any action with taskData
+
+    // Get existing tasks from localStorage or set an empty array if none exist
+    const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Add the new task to the array
+    const updatedTasks = [...existingTasks, taskData];
+
+    // Save the updated tasks array back to localStorage
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
     console.log("Task created:", taskData);
     alert("Task created successfully and saved in local storage!");
+
+    // Optional: Clear form fields after submission
+    setTaskTitle("");
+    setTaskType("");
+    setStartDate("");
+    setEndDate("");
+    setTaskDescription("");
+    setAssignee("Yash Ghori");
   };
 
   return (
