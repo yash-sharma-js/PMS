@@ -96,3 +96,44 @@ exports.addfriend = async (req, res) => {
         });
     }
 };
+
+
+
+// const { User } = require('../models/UserModel');  // Adjust the path to your User model
+
+// Controller to edit user profile
+const editUserProfile = async (req, res) => {
+  try {
+    // Extract the user ID from the request params or authenticated session
+    const userId = req.body.id;
+
+    // Fields that are allowed to be updated
+    const updates = {
+      username: req.body.username,
+      bio: req.body.bio,
+      email: req.body.email,
+      contact: req.body.contact,
+      pic: req.body.pic,
+      location: req.body.location,
+      password: req.body.password  // If you're also updating the password (ensure password hashing)
+    };
+
+    // Find the user by ID and update the profile
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates, timestamp: Date.now() },
+      { new: true, runValidators: true }  // Return the updated document, and run validators
+    );
+
+    if (!updatedUser) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    res.status(200).send({ message: 'Profile updated successfully', user: updatedUser });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { editUserProfile };
