@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Signinimg from "../../../Images/Login/login.png";
+
 import Input from "../../../components/input/Input";
 
 function Signin() {
+  const Signinimg = "/Images/Login/login.png";
   const [formData, setFormData] = useState({
     email: "",
     password: "",

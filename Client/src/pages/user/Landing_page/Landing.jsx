@@ -1,13 +1,13 @@
 import React from "react";
-import logo from "../../../Images/Landing_page_img/logo.jpg";
-import preview from "../../../Images/Landing_page_img/preview.jpg";
-import feature from "../../../Images/Landing_page_img/feature.png";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useEffect, useState } from "react";
 import Contactus from "../../../components/Contact_us/Contactus";
 
 const LandingPage = () => {
+  const logo =  "/Images/Landing_page_img/logo.jpg";
+  const preview =  "/Images/Landing_page_img/preview.jpg";
+  const feature =  "/Images/Landing_page_img/feature.png";
   const swiperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const statsRef = useRef(null);

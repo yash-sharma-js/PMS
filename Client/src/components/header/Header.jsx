@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../../Images/Landing_page_img/logo.jpg";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -7,11 +6,12 @@ function Header() {
   const userData = JSON.parse(localStorage.getItem("userSignupData"));
   const username = userData ? userData.name : "Account"; // Default to "Account" if no user is found
 
+  const logo = "/Images/Landing_page_img/logo.jpg"; // Path to the image in the public folder
+
   return (
     <nav className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3 fixed w-full z-10 top-0 shadow-md">
       <div className="text-xl font-bold">
         <Link to="/">
-          {" "}
           <img
             src={logo}
             alt="Logo"
