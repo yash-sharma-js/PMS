@@ -1,6 +1,7 @@
 import { error } from "console";
 import UserModel from "../Models/user.model";
 import { IUser } from "../Types/user.type";
+import mongoose from "mongoose";
 
 export const createUser = async ({
     username,
@@ -67,7 +68,6 @@ export const getUser = async ({email,password}:{
     }
 }
 
-
 export const updateUser = async ({
     username,
     fullName,
@@ -101,3 +101,25 @@ export const updateUser = async ({
         return { user: null, error };
     }
 };
+
+export const removeUser = async ()=>{
+
+}// Pending...
+
+export const addProjectToUser = async ({ownerId,projectId}:{ownerId:string,projectId:string})=>{
+    try {
+        const user = await UserModel.findByIdAndUpdate(
+            ownerId,
+            { $push: { projectId } },
+            { new: true }
+        );
+
+        if (!user) {
+            return { user: null, error: "User not found" };
+        }
+
+        return { user, error: null };
+    } catch (error) {
+        return { user: null, error: error.message };
+    }
+}

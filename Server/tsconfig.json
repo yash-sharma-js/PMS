@@ -6,7 +6,11 @@
       "baseUrl": "src",
       "outDir": "./dist",
       "rootDir": "./src",
-      "sourceMap": true
+      "sourceMap": true,
+      "paths": {
+        "@user/*": ["User/*"],
+        "@project/*": ["Project/*"]
+      }
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"]

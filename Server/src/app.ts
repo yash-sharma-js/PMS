@@ -5,9 +5,11 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import ConnectDB from './Config/connection';
 
-//Imports User
+//Imports Routes
 import userRouter from './User/Routes/user.route'
-
+import projectRouter from './Project/Routes/project.route'
+import taskRouter from './Task/Routes/task.route'
+import { authUser } from './User/middlewares/user.middleware';
 
 
 // Initialise app
@@ -26,8 +28,8 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/user',userRouter)
-// app.use('/api/project',userRouter)
-// app.use('/api/task',userRouter)
+app.use('/api/project',projectRouter)
+app.use('/api/task', authUser, taskRouter)
 
 
 export default app;
