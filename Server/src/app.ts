@@ -10,6 +10,7 @@ import userRouter from './User/Routes/user.route'
 import projectRouter from './Project/Routes/project.route'
 import taskRouter from './Task/Routes/task.route'
 import { authUser } from './User/middlewares/user.middleware';
+import { logRequest } from './Logger/log';
 
 
 // Initialise app
@@ -27,9 +28,9 @@ app.get('/',(req,res)=>{
     res.end("Server is Running");
 })
 
-app.use('/api/user',userRouter)
-app.use('/api/project',projectRouter)
-app.use('/api/task', authUser, taskRouter)
+app.use('/api/user',logRequest,userRouter)
+app.use('/api/project',logRequest,projectRouter)
+app.use('/api/task', logRequest,authUser, taskRouter)
 
 
 export default app;

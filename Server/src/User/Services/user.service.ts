@@ -45,6 +45,7 @@ export const getUser = async ({email,password}:{
     email: string;
     password: string;
 })=>{
+    console.log("At Service")
     try{
         if(
             !email ||
@@ -57,7 +58,7 @@ export const getUser = async ({email,password}:{
             return {user:null, error:"Email or Password is incorrect"};
         } 
 
-        const isMatch = await (await user).comparePassword(password);
+        const isMatch = await user.comparePassword(password);
         if(!isMatch){
             return {user:null,error:("Email or Password is incorrect")};
         }

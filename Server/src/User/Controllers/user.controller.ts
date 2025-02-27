@@ -48,6 +48,7 @@ export const handleRegisterUser = async (req: Request, res: Response) => {
 };
 
 export const handleLoginUser = async (req:Request , res: Response)=>{
+    console.log("At controller")
     const err = validationResult(req);
     if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
 

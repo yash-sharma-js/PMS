@@ -27,7 +27,8 @@ function Signin() {
 
     try {
       console.log("start");
-      const response = await fetch("http://localhost:4000/signin", {
+      console.log(formData)
+      const response = await fetch("http://localhost:8080/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,11 +45,11 @@ function Signin() {
         // Store the token in local storage
         localStorage.setItem("token", data.token);
         console.log("token added");
-
         // Redirect after successful login
         navigate("/project");
       } else {
         const errorData = await response.json();
+        console.log("Response not okay")
         setErrorMessage(errorData.message || "Invalid credentials.");
       }
     } catch (error) {

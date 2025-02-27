@@ -22,7 +22,7 @@ router.post('/register',[
 router.post('/login', [
     body('email').isEmail().withMessage('Invalid Message'),
     body('password').isLength({min:6}).withMessage('Password Length must be greater then 6'),
-], handleLoginUser);
+],handleLoginUser);
 
 router.get('/profile', authUser,handleUserProfile);
 
