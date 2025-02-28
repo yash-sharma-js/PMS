@@ -39,6 +39,31 @@ export const handleGetProject = async (req: Request, res: Response) => {
     return res.status(200).json({ projects });
 };
 
+export const getAllProjects = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params; // Get userId from request parameters
+        
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
+
+        const projects = await projectModel.find({ userId }); // Fetch projects for the specific user
+
+        res.status(200).json({
+            message: "Fetched all projects for the user",
+            data: projects
+        });
+        return
+    } catch (error: any) {
+        console.error("Error occurred:", error);
+        res.status(500).json({
+            message: "Server error",
+            error: error.message,
+        });
+        return;
+    }
+};
+
 export const handleUpdateProject = async (req: Request, res: Response) => {
     const { title, description, projectType, projectPicture, startDate, endDate, projectRoles } = req.body;
     const { projectId } = req.params;
@@ -73,6 +98,22 @@ export const handleUpdateProject = async (req: Request, res: Response) => {
     }
 };
 
-export const handleRemoveProject = async () => {
-    // Pending implementation
-};
+export const deleteProject = async (req:Request, res:Response) => {
+    try {
+      const { projectId } = req.params;
+  
+      // Check if project exists
+      const project = await projectModel.findById(projectId);
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+  
+      // Delete the project
+      await projectModel.findByIdAndDelete(projectId);
+  
+      res.status(200).json({ message: "Project deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };

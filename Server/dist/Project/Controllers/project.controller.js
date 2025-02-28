@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleRemoveProject = exports.handleUpdateProject = exports.handleGetProject = exports.handleCreateProject = void 0;
+exports.deleteProject = exports.handleUpdateProject = exports.getAllProjects = exports.handleGetProject = exports.handleCreateProject = void 0;
 const project_model_1 = __importDefault(require("../Models/project.model"));
 // const { validationResult } = require("express-validator");
 const project_service_1 = require("../Services/project.service");
@@ -39,6 +39,29 @@ const handleGetProject = async (req, res) => {
     return res.status(200).json({ projects });
 };
 exports.handleGetProject = handleGetProject;
+const getAllProjects = async (req, res) => {
+    try {
+        const { userId } = req.params; // Get userId from request parameters
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
+        const projects = await project_model_1.default.find({ userId }); // Fetch projects for the specific user
+        res.status(200).json({
+            message: "Fetched all projects for the user",
+            data: projects
+        });
+        return;
+    }
+    catch (error) {
+        console.error("Error occurred:", error);
+        res.status(500).json({
+            message: "Server error",
+            error: error.message,
+        });
+        return;
+    }
+};
+exports.getAllProjects = getAllProjects;
 const handleUpdateProject = async (req, res) => {
     const { title, description, projectType, projectPicture, startDate, endDate, projectRoles } = req.body;
     const { projectId } = req.params;
@@ -71,8 +94,22 @@ const handleUpdateProject = async (req, res) => {
     }
 };
 exports.handleUpdateProject = handleUpdateProject;
-const handleRemoveProject = async () => {
-    // Pending implementation
+const deleteProject = async (req, res) => {
+    try {
+        const { projectId } = req.params;
+        // Check if project exists
+        const project = await project_model_1.default.findById(projectId);
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+        // Delete the project
+        await project_model_1.default.findByIdAndDelete(projectId);
+        res.status(200).json({ message: "Project deleted successfully" });
+    }
+    catch (error) {
+        console.error("Error deleting project:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 };
-exports.handleRemoveProject = handleRemoveProject;
+exports.deleteProject = deleteProject;
 //# sourceMappingURL=project.controller.js.map

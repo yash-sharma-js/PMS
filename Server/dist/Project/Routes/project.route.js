@@ -10,6 +10,7 @@ const project_controller_1 = require("../Controllers/project.controller");
 router.post('/create', project_controller_1.handleCreateProject);
 router.get('/', project_controller_1.handleGetProject);
 router.post('/update/:projectId', project_controller_1.handleUpdateProject);
-router.post('/remove/:projectId', project_controller_1.handleRemoveProject);
+router.delete('/remove/:projectId', project_controller_1.deleteProject);
+router.get("/:userId", project_controller_1.getAllProjects);
 exports.default = router;
 //# sourceMappingURL=project.route.js.map

@@ -17,18 +17,77 @@ const CreateProjectPage = () => {
 
   const allRoles = ["Team Lead", "Developer", "Designer", "QA", "Manager"];
 
+  // const handleCreateProject = async (e) => {
+  //   e.preventDefault();
+  //   const token = localStorage.getItem("token");
+
+  //   const userId = localStorage.getItem("userId"); // Ensure user ID is retrieved properly
+  //   console.log(localStorage.getItem("userId"));
+
+  //   if (!userId) {
+  //     console.error("User ID is missing. Please log in.");
+  //     return;
+  //   }
+
+  //   const newProject = {
+  //     title: projectTitle,
+  //     description: projectDescription,
+  //     projectType,
+  //     userId,
+  //     startDate,
+  //     endDate,
+  //     activeYN: true,
+  //     projectPicture: "",
+  //     taskId: [],
+  //     members: [],
+  //   };
+
+  //   try {
+  //     const response = await fetch("http://localhost:8080/api/project/create", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify(newProject),
+  //     });
+
+  //     const responseData = await response.json();
+  //     if (!response.ok) {
+  //       console.error("Failed to create project:", responseData);
+  //     } else {
+  //       console.log("Project created:", responseData);
+  //       setSuccessMessage(true);
+  //       setProjectTitle("");
+  //       setProjectType("");
+  //       setStartDate("");
+  //       setEndDate("");
+  //       setProjectDescription("");
+  //       setProjectRoles(["Team Lead"]);
+  //       setDropdownOpen(false);
+
+  //       setTimeout(() => {
+  //         setSuccessMessage(false);
+  //       }, 3000);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating project:", error);
+  //   }
+  // };
+
+
   const handleCreateProject = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-
-    const userId = localStorage.getItem("userId"); // Ensure user ID is retrieved properly
-    console.log(localStorage.getItem("userId"));
-
+    const userId = localStorage.getItem("userId");
+  
     if (!userId) {
-      console.error("User ID is missing. Please log in.");
+      console.error("❌ User ID is missing. Please log in.");
       return;
     }
-
+  
+    console.log("✅ User ID from localStorage:", userId);
+  
     const newProject = {
       title: projectTitle,
       description: projectDescription,
@@ -40,8 +99,9 @@ const CreateProjectPage = () => {
       projectPicture: "",
       taskId: [],
       members: [],
+      projectRoles,
     };
-
+  
     try {
       const response = await fetch("http://localhost:8080/api/project/create", {
         method: "POST",
@@ -51,12 +111,12 @@ const CreateProjectPage = () => {
         },
         body: JSON.stringify(newProject),
       });
-
+  
       const responseData = await response.json();
       if (!response.ok) {
-        console.error("Failed to create project:", responseData);
+        console.error("❌ Failed to create project:", responseData);
       } else {
-        console.log("Project created:", responseData);
+        console.log("✅ Project created successfully:", responseData);
         setSuccessMessage(true);
         setProjectTitle("");
         setProjectType("");
@@ -65,16 +125,16 @@ const CreateProjectPage = () => {
         setProjectDescription("");
         setProjectRoles(["Team Lead"]);
         setDropdownOpen(false);
-
+  
         setTimeout(() => {
           setSuccessMessage(false);
         }, 3000);
       }
     } catch (error) {
-      console.error("Error creating project:", error);
+      console.error("❌ Error creating project:", error);
     }
   };
-
+  
   return (
     <div className="relative min-h-screen bg-gray-100">
       <Header />
