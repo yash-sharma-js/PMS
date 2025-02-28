@@ -18,6 +18,7 @@ import UserProfilePage from "./pages/user/edit_profile/UserProfilePage";
 import All_Task from "./pages/user/Project_create/All_Task";
 import Performance from "./pages/user/Performance/Performance";
 import { ContextProvider } from './SocketContext.jsx'
+import ProjectInfo from "./pages/user/Project_Info/ProjectInfo.jsx";
 
 // Mock function to check if the user is logged in
 const isAuthenticated = () => {
@@ -95,6 +96,14 @@ function App() {
           element={
             <PrivateRoute>
               <UserProfilePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/projectInfo"
+          element={
+            <PrivateRoute>
+              <ProjectInfo />
             </PrivateRoute>
           }
         />

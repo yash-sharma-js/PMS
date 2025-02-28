@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Header from "../../../components/header/Header";
 import TaskInfo from "../../../components/task_info/TaskInfo";
+import { useNavigate } from "react-router-dom";
 
 const ProjectInfo = () => {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState(
     Array(5).fill({
       title: "Make an Automatic Payment System that enables the design",
@@ -47,7 +49,9 @@ const ProjectInfo = () => {
           </div>
 
           {/* Assign Task Button */}
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onClick={()=>{
+            navigate('/meeting')
+          }}>
             Create Meet
           </button>
         </div>
