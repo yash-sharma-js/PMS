@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
-  // Fetch user data from local storage
-  const userData = JSON.parse(localStorage.getItem("userSignupData"));
-  const username = userData ? userData.name : "Account"; // Default to "Account" if no user is found
-
+  const [user, setUser] = useState({ username: "Account", location: "India" }); // Default values
   const logo = "/Images/Landing_page_img/logo.jpg"; // Path to the image in the public folder
+
+  // Fetch user data from the backend
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve the token from local storage
+        console.log(token);
+        const response = await fetch("http://localhost:8080/api/user/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request headers
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          console.log(userData.username);
+          setUser({ username: userData.username, location: "India" }); // Update state with fetched data
+        } else {
+          console.error("Failed to fetch user data.");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []); // Run only once when the component mounts
 
   return (
     <nav className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3 fixed w-full z-10 top-0 shadow-md">
@@ -29,8 +54,8 @@ function Header() {
         <Link to="/editprofile">
           <div className="flex items-center">
             <div className="text-right mr-2">
-              <p className="text-sm font-semibold">user</p>
-              <p className="text-xs text-gray-500">India</p>
+              <p className="text-sm font-semibold">{user.username}</p>
+              <p className="text-xs text-gray-500">{user.location}</p>
             </div>
             <img
               className="w-11 h-11 rounded-full border-2 border-gray-300"

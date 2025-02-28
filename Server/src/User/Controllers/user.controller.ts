@@ -1,101 +1,70 @@
-import { Request, Response } from "express";
-import UserModel from "../Models/user.model";
-import { createUser , getUser, updateUser } from "../Services/user.service";
-const { validationResult } = require('express-validator');
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
+function Header() {
+  const [user, setUser] = useState({ name: "Account", location: "India" }); // Default values
+  const logo = "/Images/Landing_page_img/logo.jpg"; // Path to the image in the public folder
 
-export const handleRegisterUser = async (req: Request, res: Response) => {
+  // Fetch user data from the backend
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve the token from local storage
+        const response = await fetch("http://localhost:4000/user", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request headers
+          },
+        });
 
-    // const err = validationResult(req);
-    // if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
-    
-    const {
-        username,
-        fullName: { firstName, lastName },
-        bio,
-        role,
-        email,
-        contact,
-        password,
-    } = req.body;
+        if (response.ok) {
+          const userData = await response.json();
+          setUser({ name: userData.name, location: userData.location }); // Update state with fetched data
+        } else {
+          console.error("Failed to fetch user data.");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-    // Check if email already exists
-    const isEmailExist = await UserModel.findOne({ email });
-    if (isEmailExist) {
-        return res.status(400).json({ message: "User Already Exists with this Email." });
-    }
+    fetchUserData();
+  }, []); // Run only once when the component mounts
 
-    // Hash the password
-    const hashPassword = await UserModel.hashPassword(password);
-
-    // Create the user
-    const { user, error } = await createUser({
-        username,
-        fullName: { firstName, lastName },
-        bio,
-        role,
-        email,
-        contact,
-        password: hashPassword,
-    });
-
-    if (error) {
-        return res.status(400).json({ message: error });
-    }
-    const token = await user.generateAuthToken()
-    res.cookie('token',token);
-    return res.status(201).json({token,user});
-};
-
-export const handleLoginUser = async (req:Request , res: Response)=>{
-    console.log("At controller")
-    // const err = validationResult(req);
-    // if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
-
-    const {
-        email,
-        password,
-    } = req.body;
-
-    const {user,error} = await getUser({email,password});
-    if(error){
-        return res.status(400).json(error);
-    }
-    const token = user.generateAuthToken()
-    res.cookie('token',token);
-    return res.status(201).json({token,user});
+  return (
+    <nav className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3 fixed w-full z-10 top-0 shadow-md">
+      <div className="text-xl font-bold">
+        <Link to="/">
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-48 h-12"
+            style={{ mixBlendMode: "multiply" }}
+          />
+        </Link>
+      </div>
+      <div className="flex items-center space-x-4">
+        <input
+          type="text"
+          placeholder="Search for anything..."
+          className="px-4 py-2 border border-gray-300 rounded-full focus:outline-none"
+        />
+        <Link to="/editprofile">
+          <div className="flex items-center">
+            <div className="text-right mr-2">
+              <p className="text-sm font-semibold">{user.name}</p>
+              <p className="text-xs text-gray-500">{user.location}</p>
+            </div>
+            <img
+              className="w-11 h-11 rounded-full border-2 border-gray-300"
+              src="https://img.freepik.com/premium-photo/3d-avatar-cartoon-character_113255-91373.jpg?size=626&ext=jpg"
+              alt="User Avatar"
+            />
+          </div>
+        </Link>
+      </div>
+    </nav>
+  );
 }
 
-export const handleUserProfile = async (req: Request,res:Response)=>{
-    return res.status(200).json(req.user);
-}
-
-export const handleUpdateUser = async (req: Request, res: Response) => {
-    const { username, fullName, bio, role, email, contact, password } = req.body;
-    console.log("Data is comming..")
-    if (!username || !fullName || !email || !password) {
-        return res.status(400).json({ message: "Missing required fields." });
-    }
-
-    const hashPassword = await UserModel.hashPassword(password)
-    const { user, error } = await updateUser({
-        username,
-        fullName,
-        bio,
-        role,
-        email,
-        contact,
-        password:hashPassword,
-    });
-
-    if (error) {
-        return res.status(400).json({ message: error.message || "Update failed." });
-    }
-    const token = await user.generateAuthToken();
-    res.cookie('token',token);
-    return res.status(200).json({token, user });
-};
-
-export const handleLogoutUser = async (req:Request,res:Response)=>{
-    return res.status(200).json({message:"User logged out"})
-} 
+export default Header;

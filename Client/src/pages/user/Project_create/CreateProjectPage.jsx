@@ -13,79 +13,61 @@ const CreateProjectPage = () => {
   const [projectDescription, setProjectDescription] = useState("");
   const [projectRoles, setProjectRoles] = useState(["Team Lead"]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(false); // State for success message
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const allRoles = ["Team Lead", "Developer", "Designer", "QA", "Manager"];
 
   const handleCreateProject = async (e) => {
-    // Retrieve the token from local storage (if applicable)
-    const token = localStorage.getItem("token"); // Adjust this if your token is stored differently
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    const userId = localStorage.getItem("userId"); // Ensure user ID is retrieved properly
+    console.log(localStorage.getItem("userId"));
+
+    if (!userId) {
+      console.error("User ID is missing. Please log in.");
+      return;
+    }
 
     const newProject = {
-      id: Date.now(), // Create a unique ID for the project
       title: projectTitle,
-      type: projectType,
-      startDate,
-      endDate,
       description: projectDescription,
-      roles: projectRoles,
+      type: projectType,
+      ownerId: userId,
+      activeYN: true,
+      projectPicture: "",
+      taskId: [],
+      members: [],
     };
 
     try {
-      // Save project details to local storage
-      const existingProjects =
-        JSON.parse(localStorage.getItem("projects")) || [];
-      const updatedProjects = [...existingProjects, newProject];
-      localStorage.setItem("projects", JSON.stringify(updatedProjects));
+      const response = await fetch("http://localhost:8080/api/project/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newProject),
+      });
 
-      // Simulate API call (uncomment if you want to send it to backend)
-      // const response = await fetch("http://localhost:4000/projects", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${token}`, // Include token if needed
-      //   },
-      //   body: JSON.stringify(newProject),
-      // });
+      const responseData = await response.json();
+      if (!response.ok) {
+        console.error("Failed to create project:", responseData);
+      } else {
+        console.log("Project created:", responseData);
+        setSuccessMessage(true);
+        setProjectTitle("");
+        setProjectType("");
+        setStartDate("");
+        setEndDate("");
+        setProjectDescription("");
+        setProjectRoles(["Team Lead"]);
+        setDropdownOpen(false);
 
-      // if (response.ok) {
-      //   const project = await response.json();
-      //   console.log("Project created:", project);
-      //   setSuccessMessage(true); // Show success message
-
-      //   // Reset form fields
-      //   setProjectTitle("");
-      //   setProjectType("");
-      //   setStartDate("");
-      //   setEndDate("");
-      //   setProjectDescription("");
-      //   setProjectRoles(["Team Lead"]);
-      //   setDropdownOpen(false);
-
-      //   // Hide success message after 3 seconds
-      //   setTimeout(() => {
-      //     setSuccessMessage(false);
-      //   }, 3000);
-      // } else {
-      //   console.error("Failed to create project.");
-      // }
-
-      // Show success message for local storage operation
-      setSuccessMessage(true); // Show success message
-
-      // Reset form fields
-      setProjectTitle("");
-      setProjectType("");
-      setStartDate("");
-      setEndDate("");
-      setProjectDescription("");
-      setProjectRoles(["Team Lead"]);
-      setDropdownOpen(false);
-
-      // Hide success message after 3 seconds
-      setTimeout(() => {
-        setSuccessMessage(false);
-      }, 3000);
+        setTimeout(() => {
+          setSuccessMessage(false);
+        }, 3000);
+      }
     } catch (error) {
       console.error("Error creating project:", error);
     }
@@ -96,7 +78,6 @@ const CreateProjectPage = () => {
       <Header />
       <Sidebar />
       <div className="ml-56 mr-1 px-20 pt-24">
-        {/* Success Message Popup */}
         {successMessage && (
           <div className="absolute top-20 right-4 p-4 bg-black text-white rounded-md shadow-md">
             Project created successfully!
@@ -153,7 +134,13 @@ const CreateProjectPage = () => {
                         type="checkbox"
                         className="h-4 w-4 text-blue-600 border-gray-300 rounded"
                         checked={projectRoles.includes(role)}
-                        onChange={() => handleRoleChange(role)}
+                        onChange={() =>
+                          setProjectRoles((prevRoles) =>
+                            prevRoles.includes(role)
+                              ? prevRoles.filter((r) => r !== role)
+                              : [...prevRoles, role]
+                          )
+                        }
                       />
                       <label className="ml-2 text-sm font-medium text-gray-700">
                         {role}
