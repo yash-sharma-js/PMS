@@ -17,6 +17,7 @@ export interface IUser extends Document {
     password: string;
     friendsId?: mongoose.Types.ObjectId[];
     projectId?: mongoose.Types.ObjectId[];
+    // taskId?: mongoose.Types.ObjectId[];
     activeYN?: boolean;
     socketId?:string;
     generateAuthToken: () => string;

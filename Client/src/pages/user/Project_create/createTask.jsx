@@ -15,11 +15,47 @@ const CreateTask = () => {
 
   const assignees = ["Yash Ghori", "Atharv", "John Doe", "Jane Smith"];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
 
+    
+  //   e.preventDefault();
+
+  //   const taskData = {
+  //     id: Date.now(), // Generate a unique ID using timestamp
+  //     title: taskTitle,
+  //     type: taskType,
+  //     startDate,
+  //     endDate,
+  //     description: taskDescription,
+  //     assignee,
+  //   };
+
+  //   // Get existing tasks from localStorage or set an empty array if none exist
+  //   const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  //   // Add the new task to the array
+  //   const updatedTasks = [...existingTasks, taskData];
+
+  //   // Save the updated tasks array back to localStorage
+  //   localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
+  //   console.log("Task created:", taskData);
+  //   alert("Task created successfully and saved in local storage!");
+
+  //   // Optional: Clear form fields after submission
+  //   setTaskTitle("");
+  //   setTaskType("");
+  //   setStartDate("");
+  //   setEndDate("");
+  //   setTaskDescription("");
+  //   setAssignee("Yash Ghori");
+  // };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     const taskData = {
-      id: Date.now(), // Generate a unique ID using timestamp
       title: taskTitle,
       type: taskType,
       startDate,
@@ -27,27 +63,38 @@ const CreateTask = () => {
       description: taskDescription,
       assignee,
     };
-
-    // Get existing tasks from localStorage or set an empty array if none exist
-    const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    // Add the new task to the array
-    const updatedTasks = [...existingTasks, taskData];
-
-    // Save the updated tasks array back to localStorage
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-
-    console.log("Task created:", taskData);
-    alert("Task created successfully and saved in local storage!");
-
-    // Optional: Clear form fields after submission
-    setTaskTitle("");
-    setTaskType("");
-    setStartDate("");
-    setEndDate("");
-    setTaskDescription("");
-    setAssignee("Yash Ghori");
+  
+    try {
+      const response = await fetch("http://localhost:8080/api/task/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskData),
+      });
+      console.log("response for task", response)
+  
+      if (!response.ok) {
+        throw new Error("Failed to create task");
+      }
+  
+      const data = await response.json();
+      console.log("Task created:", data);
+      alert("Task created successfully!");
+  
+      // Optional: Clear form fields after submission
+      setTaskTitle("");
+      setTaskType("");
+      setStartDate("");
+      setEndDate("");
+      setTaskDescription("");
+      setAssignee("Yash Ghori");
+    } catch (error) {
+      console.error("Error creating task:", error);
+      alert("Failed to create task. Please try again.");
+    }
   };
+  
 
   return (
     <div className="relative min-h-screen bg-gray-100">

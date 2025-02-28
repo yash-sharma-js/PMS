@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema<IUser>(
         projectId: [{ type: mongoose.Schema.Types.ObjectId, required: false }],
         socketId: {type:String, required:false},
         activeYN: { type: Boolean, required: false, default: true },
+        // taskId : { type: String, required:false}
     },
     { timestamps: true }
 );

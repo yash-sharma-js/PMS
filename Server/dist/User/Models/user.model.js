@@ -25,6 +25,7 @@ const UserSchema = new mongoose_1.default.Schema({
     projectId: [{ type: mongoose_1.default.Schema.Types.ObjectId, required: false }],
     socketId: { type: String, required: false },
     activeYN: { type: Boolean, required: false, default: true },
+    // taskId : { type: String, required:false}
 }, { timestamps: true });
 UserSchema.methods.generateAuthToken = function () {
     return jsonwebtoken_1.default.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: "24h" });
