@@ -8,8 +8,10 @@ const user_model_1 = __importDefault(require("../Models/user.model"));
 const user_service_1 = require("../Services/user.service");
 const { validationResult } = require('express-validator');
 const handleRegisterUser = async (req, res) => {
-    // const err = validationResult(req);
-    // if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
+    const err = validationResult(req);
+    if (!err.isEmpty()) {
+        return res.status(400).json({ errors: err.array() });
+    } //Validating Request
     const { username, fullName: { firstName, lastName }, bio, role, email, contact, password, } = req.body;
     // Check if email already exists
     const isEmailExist = await user_model_1.default.findOne({ email });
@@ -32,21 +34,23 @@ const handleRegisterUser = async (req, res) => {
         return res.status(400).json({ message: error });
     }
     const token = await user.generateAuthToken();
-    res.cookie('token', token);
+    res.cookie('userId', user._id).cookie('token', token);
     return res.status(201).json({ token, user });
 };
 exports.handleRegisterUser = handleRegisterUser;
 const handleLoginUser = async (req, res) => {
     console.log("At controller");
-    // const err = validationResult(req);
-    // if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
+    const err = validationResult(req);
+    if (!err.isEmpty()) {
+        return res.status(400).json({ errors: err.array() });
+    } //Validating Request
     const { email, password, } = req.body;
     const { user, error } = await (0, user_service_1.getUser)({ email, password });
     if (error) {
         return res.status(400).json(error);
     }
     const token = user.generateAuthToken();
-    res.cookie('token', token);
+    res.cookie('userId', user._id).cookie('token', token);
     return res.status(201).json({ token, user });
 };
 exports.handleLoginUser = handleLoginUser;

@@ -107,10 +107,10 @@ export const removeUser = async ()=>{
 
 }// Pending...
 
-export const addProjectToUser = async ({ownerId,projectId}:{ownerId:string,projectId:string})=>{
+export const addProjectToUser = async ({userId,projectId}:{userId:string,projectId:string})=>{
     try {
         const user = await UserModel.findByIdAndUpdate(
-            ownerId,
+            userId,
             { $push: { projectId } },
             { new: true }
         );

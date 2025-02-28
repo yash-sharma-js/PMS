@@ -5,19 +5,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addTaskToProject = exports.remove = exports.update = exports.create = void 0;
 const project_model_1 = __importDefault(require("../Models/project.model"));
-const create = async ({ title, description, type, ownerId, projectPicture, taskId, members, }) => {
-    if (!title || !description || !type || !ownerId) {
-        return { project: null, error: "All fields Required" };
+const create = async ({ title, description, projectType, userId, projectPicture, taskId, members, startDate, endDate, projectRoles }) => {
+    if (!title || !description || !projectType || !userId) {
+        return { project: null, error: "All required fields must be filled" };
     }
     try {
         const project = await project_model_1.default.create({
             title,
             description,
-            type,
-            ownerId,
+            projectType,
+            userId,
             projectPicture,
             taskId,
             members,
+            startDate,
+            endDate,
+            projectRoles
         });
         return { project, error: null };
     }
@@ -26,12 +29,12 @@ const create = async ({ title, description, type, ownerId, projectPicture, taskI
     }
 };
 exports.create = create;
-const update = async ({ title, description, type, projectPicture, projectId, }) => {
-    if (!title || !description || !type) {
-        return { project: null, error: "All fields are required" };
+const update = async ({ title, description, projectType, projectPicture, projectId, startDate, endDate, projectRoles }) => {
+    if (!title || !description || !projectType) {
+        return { project: null, error: "All required fields must be filled" };
     }
     try {
-        const updateData = { title, description, type };
+        const updateData = { title, description, projectType, startDate, endDate, projectRoles };
         if (projectPicture) {
             updateData.projectPicture = projectPicture;
         }
@@ -47,9 +50,11 @@ const update = async ({ title, description, type, projectPicture, projectId, }) 
 };
 exports.update = update;
 const remove = async ({}) => {
-}; //pending...
+    // Pending implementation
+};
 exports.remove = remove;
 const addTaskToProject = async () => {
-}; //pending...
+    // Pending implementation
+};
 exports.addTaskToProject = addTaskToProject;
 //# sourceMappingURL=project.service.js.map

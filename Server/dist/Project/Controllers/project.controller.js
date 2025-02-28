@@ -5,25 +5,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleRemoveProject = exports.handleUpdateProject = exports.handleGetProject = exports.handleCreateProject = void 0;
 const project_model_1 = __importDefault(require("../Models/project.model"));
-const { validationResult } = require('express-validator');
+// const { validationResult } = require("express-validator");
 const project_service_1 = require("../Services/project.service");
 const user_service_1 = require("../../User/Services/user.service");
 const handleCreateProject = async (req, res) => {
-    const { title, description, type, ownerId, projectPicture, taskId, members } = req.body;
+    const { title, description, projectType, userId, projectPicture, taskId, members, startDate, endDate, projectRoles } = req.body;
+    console.log({ title, description, projectType, userId, projectPicture, taskId, members, startDate, endDate, projectRoles });
     const { project, error } = await (0, project_service_1.create)({
         title,
         description,
-        type,
-        ownerId,
+        projectType,
+        userId,
         projectPicture,
         taskId,
         members,
+        startDate,
+        endDate,
+        projectRoles
     });
     if (error) {
         return res.status(400).json({ error });
     }
     // Call user service to update the user
-    const { user, error: userError } = await (0, user_service_1.addProjectToUser)({ ownerId, projectId: project._id });
+    const { user, error: userError } = await (0, user_service_1.addProjectToUser)({ userId, projectId: project._id });
     if (userError) {
         return res.status(400).json({ error: userError });
     }
@@ -31,12 +35,12 @@ const handleCreateProject = async (req, res) => {
 };
 exports.handleCreateProject = handleCreateProject;
 const handleGetProject = async (req, res) => {
-    const Projects = await project_model_1.default.find();
-    return res.status(200).json({ Projects });
+    const projects = await project_model_1.default.find();
+    return res.status(200).json({ projects });
 };
 exports.handleGetProject = handleGetProject;
 const handleUpdateProject = async (req, res) => {
-    const { title, description, type, projectPicture } = req.body;
+    const { title, description, projectType, projectPicture, startDate, endDate, projectRoles } = req.body;
     const { projectId } = req.params;
     try {
         if (!req.user || !req.user.projectId) {
@@ -49,8 +53,11 @@ const handleUpdateProject = async (req, res) => {
         const { project, error } = await (0, project_service_1.update)({
             title,
             description,
-            type,
+            projectType,
             projectPicture,
+            startDate,
+            endDate,
+            projectRoles,
             projectId,
         });
         if (error) {
@@ -65,6 +72,7 @@ const handleUpdateProject = async (req, res) => {
 };
 exports.handleUpdateProject = handleUpdateProject;
 const handleRemoveProject = async () => {
-}; //pending...
+    // Pending implementation
+};
 exports.handleRemoveProject = handleRemoveProject;
 //# sourceMappingURL=project.controller.js.map

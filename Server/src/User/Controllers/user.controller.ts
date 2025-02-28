@@ -6,8 +6,8 @@ const { validationResult } = require('express-validator');
 
 export const handleRegisterUser = async (req: Request, res: Response) => {
 
-    // const err = validationResult(req);
-    // if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
+    const err = validationResult(req);
+    if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
     
     const {
         username,
@@ -43,14 +43,14 @@ export const handleRegisterUser = async (req: Request, res: Response) => {
         return res.status(400).json({ message: error });
     }
     const token = await user.generateAuthToken()
-    res.cookie('token',token);
+    res.cookie('userId', user._id).cookie('token', token);
     return res.status(201).json({token,user});
 };
 
 export const handleLoginUser = async (req:Request , res: Response)=>{
     console.log("At controller")
-    // const err = validationResult(req);
-    // if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
+    const err = validationResult(req);
+    if(!err.isEmpty()){ return res.status(400).json({errors : err.array()})} //Validating Request
 
     const {
         email,
@@ -62,7 +62,7 @@ export const handleLoginUser = async (req:Request , res: Response)=>{
         return res.status(400).json(error);
     }
     const token = user.generateAuthToken()
-    res.cookie('token',token);
+    res.cookie('userId', user._id).cookie('token', token);
     return res.status(201).json({token,user});
 }
 

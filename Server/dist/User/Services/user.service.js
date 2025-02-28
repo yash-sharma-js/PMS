@@ -67,9 +67,9 @@ exports.updateUser = updateUser;
 const removeUser = async () => {
 }; // Pending...
 exports.removeUser = removeUser;
-const addProjectToUser = async ({ ownerId, projectId }) => {
+const addProjectToUser = async ({ userId, projectId }) => {
     try {
-        const user = await user_model_1.default.findByIdAndUpdate(ownerId, { $push: { projectId } }, { new: true });
+        const user = await user_model_1.default.findByIdAndUpdate(userId, { $push: { projectId } }, { new: true });
         if (!user) {
             return { user: null, error: "User not found" };
         }
