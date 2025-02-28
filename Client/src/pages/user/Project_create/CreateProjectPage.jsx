@@ -32,8 +32,10 @@ const CreateProjectPage = () => {
     const newProject = {
       title: projectTitle,
       description: projectDescription,
-      type: projectType,
-      ownerId: userId,
+      projectType,
+      userId,
+      startDate,
+      endDate,
       activeYN: true,
       projectPicture: "",
       taskId: [],

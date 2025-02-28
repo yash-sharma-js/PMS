@@ -8,13 +8,16 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const projectSchema = new mongoose_1.default.Schema({
     title: { type: String, required: true },
-    description: { type: String, required: true, minlength: [3, "username should have MinLength of 3"] },
-    type: { type: String, required: true },
-    ownerId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true },
+    description: { type: String, required: true, minlength: [3, "Description should have a minimum length of 3"] },
+    projectType: { type: String, required: true },
+    userId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true },
     activeYN: { type: Boolean, required: false },
     projectPicture: { type: String, required: false },
     taskId: [{ type: mongoose_1.default.Schema.Types.ObjectId, required: false }],
-    members: [{ type: mongoose_1.default.Schema.Types.ObjectId, required: false }]
+    members: [{ type: mongoose_1.default.Schema.Types.ObjectId, required: false }],
+    startDate: { type: Date, required: false },
+    endDate: { type: Date, required: false },
+    projectRoles: [{ type: String, required: false }]
 });
 const projectModel = mongoose_1.default.model("project", projectSchema);
 exports.default = projectModel;
