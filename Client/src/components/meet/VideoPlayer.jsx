@@ -1,29 +1,24 @@
-import React from "react";
-import { useContext } from 'react';
-import { SocketContext } from '../../SocketContext';
+import React, { useContext } from "react";
+import { Typography } from "@mui/material";
+import { SocketContext } from "../../SocketContext";
 
 const VideoPlayer = () => {
-  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
+  const { name, callAccepted, myVideo, userVideo, callEnded, call } = useContext(SocketContext);
 
   return (
-    <div className="p-6 flex flex-col md:flex-row gap-6 justify-center items-center">
-      <div className="flex flex-col w-full md:w-1/2 border border-gray-300 rounded-lg bg-white shadow-lg">
-        <div className="p-4 border-b border-gray-300">
-          <h4 className="text-lg font-semibold">{name || "My Video"}</h4>
-        </div>
-        <div className="flex justify-center p-4">
-          <video playsInline muted ref={myVideo} autoPlay className="rounded-lg shadow-lg" />
-        </div>
+    <div className="flex flex-col md:flex-row items-center justify-center p-6 gap-4 w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+      <div className="w-full md:w-1/2 p-2">
+        <Typography variant="h6" className="text-gray-800 text-center mb-2">
+          {name || "My Video"}
+        </Typography>
+        <video playsInline muted ref={myVideo} autoPlay className="w-full h-auto rounded-md shadow-md" />
       </div>
-
       {callAccepted && !callEnded && (
-        <div className="flex flex-col w-full md:w-1/2 border border-gray-300 rounded-lg bg-white shadow-lg">
-          <div className="p-4 border-b border-gray-300">
-            <h4 className="text-lg font-semibold">{call.name || "User Video"}</h4>
-          </div>
-          <div className="flex justify-center p-4">
-            <video playsInline ref={userVideo} autoPlay className="rounded-lg shadow-lg" />
-          </div>
+        <div className="w-full md:w-1/2 p-2">
+          <Typography variant="h6" className="text-gray-800 text-center mb-2">
+            {call.name || "User Video"}
+          </Typography>
+          <video playsInline ref={userVideo} autoPlay className="w-full h-auto rounded-md shadow-md" />
         </div>
       )}
     </div>

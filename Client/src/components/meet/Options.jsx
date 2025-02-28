@@ -1,51 +1,55 @@
-import React from "react";
-import  { useContext, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { SocketContext } from '../../SocketContext';
-import { TextField, Button, Grid, Typography, Container, Paper } from '@mui/material'; // Update this import
-import { makeStyles } from '@material-ui/core/styles'; // Update this import
-import { Assignment, Phone, PhoneDisabled } from '@mui/icons-material'; // Update this import
+import React, { useContext, useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { SocketContext } from "../../SocketContext";
+import { TextField, Button, Typography, Paper } from "@mui/material";
+import { Assignment, Phone, PhoneDisabled } from "@mui/icons-material";
 
 const Options = ({ children }) => {
   const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } = useContext(SocketContext);
-  const [idToCall, setIdToCall] = useState('');
+  const [idToCall, setIdToCall] = useState("");
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 bg-white shadow-lg rounded-lg p-8 mb-8">
-        <form className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-4">
-              <Typography variant="h6" className="mb-2">Account Info</Typography>
-              <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} fullWidth className="w-full" />
-              <CopyToClipboard text={me} className="inline-block">
-                <Button variant="contained" color="primary" startIcon={<Assignment fontSize="large" />} className="w-full">
-                  Copy Your ID
-                </Button>
-              </CopyToClipboard>
-            </div>
-            <div className="space-y-4">
-              <Typography variant="h6" className="mb-2">Make a call</Typography>
-              <TextField label="ID to call" value={idToCall} onChange={(e) => setIdToCall(e.target.value)} fullWidth className="w-full" />
-              {callAccepted && !callEnded ? (
-                <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={leaveCall}>
-                  Hang Up
-                </Button>
-              ) : (
-                <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={() => {
-                  console.log(idToCall)
-                  callUser(idToCall)}}>
-                  Call
-                </Button>
-              )}
-            </div>
-          </div>
-        </form>
-        {children}
+    <Paper elevation={10} className="p-4 bg-white text-gray-800 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
+      <Typography variant="h6" className="mb-3 font-semibold text-center">
+        Video Call Options
+      </Typography>
+      <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+        <div className="flex flex-col gap-2 w-full md:w-1/2">
+          <TextField
+            label="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            fullWidth
+            className="bg-gray-100 rounded-lg"
+          />
+          <CopyToClipboard text={me}>
+            <Button variant="contained" color="primary" startIcon={<Assignment />} fullWidth>
+              Copy ID
+            </Button>
+          </CopyToClipboard>
+        </div>
+        <div className="flex flex-col gap-2 w-full md:w-1/2">
+          <TextField
+            label="ID to Call"
+            value={idToCall}
+            onChange={(e) => setIdToCall(e.target.value)}
+            fullWidth
+            className="bg-gray-100 rounded-lg"
+          />
+          {callAccepted && !callEnded ? (
+            <Button variant="contained" color="secondary" startIcon={<PhoneDisabled />} fullWidth onClick={leaveCall}>
+              Hang Up
+            </Button>
+          ) : (
+            <Button variant="contained" color="primary" startIcon={<Phone />} fullWidth onClick={() => callUser(idToCall)}>
+              Call
+            </Button>
+          )}
+        </div>
       </div>
-    </div>
+      {children}
+    </Paper>
   );
 };
 
 export default Options;
-

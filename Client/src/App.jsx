@@ -5,6 +5,8 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import Meet from "./Meeting/Meet"
+import Meeting from "./pages/user/meeting/Meeting"
 import Signin from "./pages/user/Signin/Signin";
 import Signup from "./pages/user/Signup/Signup";
 import LandingPage from "./pages/user/Landing_page/Landing";
@@ -16,7 +18,6 @@ import UserProfilePage from "./pages/user/edit_profile/UserProfilePage";
 import All_Task from "./pages/user/Project_create/All_Task";
 import Performance from "./pages/user/Performance/Performance";
 import { ContextProvider } from './SocketContext.jsx'
-import Meet from './Meeting/App.jsx'
 
 // Mock function to check if the user is logged in
 const isAuthenticated = () => {
@@ -114,15 +115,25 @@ function App() {
           }
         />
         <Route
-          path="/meet"
+          path="/meeting"
           element={
             <PrivateRoute>
               <ContextProvider>
-                <Meet />
+
+              <Meeting />
               </ContextProvider>
             </PrivateRoute>
           }
         />
+        <Route 
+          path = "/meet"
+          element ={
+            <PrivateRoute>
+           < Meet/>
+           </PrivateRoute>
+          }
+        />  
+
       </Routes>
     </Router>
   );
