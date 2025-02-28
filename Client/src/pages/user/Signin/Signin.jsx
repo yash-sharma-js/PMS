@@ -35,23 +35,22 @@ function Signin() {
         },
         body: JSON.stringify(formData),
       });
-      console.log("after");
+      // console.log("response",response.json());
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
-        console.log("token", data.token);
 
-        // Store the token in local storage
-        localStorage.setItem("token", data.token);
-        console.log("token added");
-        // Redirect after successful login
-        navigate("/project");
-      } else {
-        const errorData = await response.json();
-        console.log("Response not okay")
-        setErrorMessage(errorData.message || "Invalid credentials.");
-      }
+      const data = await response.json();
+      const userId = data.user._id;
+      console.log("Login successful:", data);
+      console.log("token", data.token);
+      console.log("userId", userId);
+
+      // Store the token in local storage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", userId);
+      console.log("token added");
+      // Redirect after successful login
+      navigate("/project");
+
     } catch (error) {
       console.error("Error during sign-in:", error);
       setErrorMessage("Something went wrong. Please try again.");
