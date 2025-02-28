@@ -9,7 +9,7 @@ const Options = ({ children }) => {
   const [idToCall, setIdToCall] = useState("");
 
   return (
-    <Paper elevation={10} className="p-4 bg-white text-gray-800 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
+    <Paper elevation={10} className="p-4 bg-white text-gray-800 rounded-lg shadow-lg w-full max-w-4xl mx-auto mt-4">
       <Typography variant="h6" className="mb-3 font-semibold text-center">
         Video Call Options
       </Typography>
@@ -20,7 +20,8 @@ const Options = ({ children }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             fullWidth
-            className="bg-gray-100 rounded-lg"
+            className="bg-gray-100 rounded-lg text-sm py-1"
+            size="small"
           />
           <CopyToClipboard text={me}>
             <Button variant="contained" color="primary" startIcon={<Assignment />} fullWidth>
@@ -34,7 +35,8 @@ const Options = ({ children }) => {
             value={idToCall}
             onChange={(e) => setIdToCall(e.target.value)}
             fullWidth
-            className="bg-gray-100 rounded-lg"
+            className="bg-gray-100 rounded-lg text-sm py-1"
+            size="small"
           />
           {callAccepted && !callEnded ? (
             <Button variant="contained" color="secondary" startIcon={<PhoneDisabled />} fullWidth onClick={leaveCall}>
